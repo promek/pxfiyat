@@ -23,10 +23,10 @@
 //      Kosul Alani,Kosul1,Kosul2,giris durumu,Arama Durumu,Sol Sut. kilit,Sag Sut. Kilit,Cerceve Durumu)
 //MyBrowse(0,0,24,79,aAlan,aBasl,aPict,MyFunc,"Tarih",Ilktar,SonTar,.T.,.T.,0,0,.T.)
 
-#include "Common.ch"
-#include "Inkey.ch"
-#include "Setcurs.ch"
-#include "Error.ch"
+#include "common.ch"
+#include "inkey.ch"
+#include "setcurs.ch"
+#include "error.ch"
 #define APP_MODE_ON( b )      ( b:cargo := TRUE  )
 #define APP_MODE_OFF( b )     ( b:cargo := FALSE )
 #define APP_MODE_ACTIVE( b )  ( b:cargo )
@@ -173,7 +173,7 @@ STATIC Function ApplyKey( oB, nKey )
    do case
 
    case nKey == K_ALT_S
-        ScrSaver()
+//        ScrSaver()
 
    case nKey == K_DOWN
       If sFound=.T.
@@ -310,7 +310,7 @@ STATIC Function InsToggle()
    RETURN
 
 //FormatColumn////////////////////////////////////////////////////////////////
-STATIC Function FormatColumn( oB )
+Function FormatColumns( oB )
    LOCAL n
    Local oColumn
    Local xValue
@@ -421,10 +421,9 @@ local nKey
                   nKEY := 0
                   IF oB:COLPOS != oB:COLCOUNT()
                      IF oB:COLPOS < nRightLock
-                        KEYBOARD CHR(K_RIGHT)+CHR(K_RETURN)
+//                        KEYBOARD CHR(K_RIGHT)+CHR(K_RETURN)
                      Else
-                        KEYBOARD CHR(K_CTRL_HOME)
-//                        KEYBOARD CHR(K_HOME)+CHR(K_DOWN)
+//                        KEYBOARD CHR(K_CTRL_HOME)
                      Endif
                   ENDIF
 
@@ -477,7 +476,7 @@ cRet := STRTRAN( cRet, "i", "" )
 cRet := UPPER( cRet )
 cRet := STRTRAN( cRet, "", "" )
 cRet := STRTRAN( cRet, "", "" )
-cRet := STRTRAN( cRet, "§", "Š" )
+cRet := STRTRAN( cRet, "§", "¦" )
 cRet := STRTRAN( cRet, "", "" )
 cRet := STRTRAN( cRet, "", "I" )
 cRet := STRTRAN( cRet, "", "" )

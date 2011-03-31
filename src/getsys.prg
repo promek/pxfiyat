@@ -19,8 +19,8 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>. //
 //////////////////////////////////////////////////////////////////////////
 
-#include "Inkey.ch"
-#include "Getexit.ch"
+#include "inkey.ch"
+#include "getexit.ch"
 #define _GET_INSERT_ON   7     // "Ins"
 #define _GET_INSERT_OFF  8     // "   "
 #define _GET_INVD_DATE   9     // "Invalid Date"

@@ -72,7 +72,7 @@ Return
 Function DosDuzen()
 If RAPAYAR->SCR_SUR>0
    Set key 273 To
-   Trapanykey()
+//   Trapanykey()
    Keysec()
 Endif
 SetCursor(0)
@@ -142,7 +142,7 @@ DosyaOnar()
 Bekle(.F.)
 If RAPAYAR->SCR_SUR>0
    Set key 273 to int_altw
-   Trapanykey("int_tus")
+//   Trapanykey("int_tus")
    Keysec(273,1,-1)
 Endif
 Return
@@ -339,8 +339,6 @@ RETURN nRetVal
 //////////////////////////////////////////////////////////////////////////////
 FUNCTION ABOUT
 LOCAL mrenk,mcrsr,absat,aekran,cOLDFNT
-Fontload("pylogo.fnt",1)
-Fontselect(1,1)
 SETCURSOR(0)
 DispBegin()
     _Win(3,19,21,60,"R/7",3,1)
@@ -374,98 +372,6 @@ DispEnd()
     setcursor(mcrsr)
 RETURN NIL
 //////////////////////////////////////////////////////////////////////////////
-Function ScrSaver()
-If RAPAYAR->SCR_SUR>0
-   Set key 273 To
-   Trapanykey()
-   Keysec()
-Endif
-aColor1:={}
-aColor2:={}
-For J=1 To 15
-    R:= GETVGAPAL(J,"R")
-    G:= GETVGAPAL(J,"G")
-    B:= GETVGAPAL(J,"B")
-    aAdd(aColor1,{R,G,B})
-    aAdd(aColor2,{R,G,B})
-Next
-OldScrX:=SaveScreen(0,0,24,79)
-For J=1 To 15
-Inkey(0.01)
-  Do While .T.
-    If Lastkey()>26 .And. Lastkey()<175
-       For J=1 To 15
-           VGAPALETTE(J,aColor2[J,1],aColor2[J,2],aColor2[J,3])
-       Next
-       RestScreen(0,0,24,79,OldScrX)
-       If RAPAYAR->SCR_SUR>0
-          Set key 273 to int_altw
-          Trapanykey("int_tus")
-          Keysec(273,1,-1)
-       Endif
-       TBosalt()
-       Return
-    Endif
-    If aColor1[J,1]!=0
-       aColor1[J,1]--
-    Endif
-    If aColor1[J,2]!=0
-       aColor1[J,2]--
-    Endif
-    If aColor1[J,3]!=0
-       aColor1[J,3]--
-    Endif
-    VGAPALETTE(J,aColor1[J,1],aColor1[J,2],aColor1[J,3])
-  If aColor1[J,1]=0 .And. aColor1[J,2]=0 .And. aColor1[J,2]=0
-     Exit
-  Endif
-Enddo
-Next
-VGAPALETTE(01,00,00,12)
-Colorwin(0,0,24,79,"1/0")
-VGAPALETTE(08,23,23,23)
-VGAPALETTE(09,27,27,27)
-VGAPALETTE(10,31,31,31)
-VGAPALETTE(11,35,35,35)
-X1=1;Y1=1;X2=4;Y2=7
-XAd:=1
-YAd:=1
-Do While .T.
-   If X2>23 .Or. X1<1
-      XAd:=-XAd
-   Endif
-   If Y2>78 .Or. Y1<1
-      YAd:=-YAd
-   Endif
-   X1=X1+XAd
-   Y1=Y1+YAd
-   X2=X2+XAd
-   Y2=Y2+YAd
-   Colorwin(X1,Y1+1,X2,Y2-1,"08/0")
-   Colorwin(X1+1,Y1,X2-1,Y2,"08/0")
-   Colorwin(X1,Y1+2,X2,Y2-2,"09/0")
-   Colorwin(X1+1,Y1+1,X2-1,Y2-1,"09/0")
-   Colorwin(X1,Y1+3,X2,Y2-3,"10/0")
-   Colorwin(X1+1,Y1+2,X2-1,Y2-2,"10/0")
-   Colorwin(X1+1,Y1+3,X2-1,Y2-3,"11/0")
-   inkey(0.01)
-   Colorwin(X1,Y1,X2,Y2,"1/0")
-If Lastkey()>26 .And. Lastkey()<175
-   Exit
-Endif
-Enddo
-For J=1 To 15
-    VGAPALETTE(J,aColor2[J,1],aColor2[J,2],aColor2[J,3])
-Next
-RestScreen(0,0,24,79,OldScrX)
-If RAPAYAR->SCR_SUR>0
-   Set key 273 to int_altw
-   Trapanykey("int_tus")
-   Keysec(273,1,-1)
-Endif
-TBosalt()
-Return
-//////////////////////////////////////////////////////////////////////////////
 procedure int_altw
 LOCAL INT_EKRAN
 PRIVATE cOLDSET:=SET(_SET_DEFAULT)
@@ -473,7 +379,7 @@ set key 273 to
   ara=(Seconds()-Oldtime)
   if (ara>=kes_sure) .or. (kes_sure!=0)
      SET DEFAULT TO
-     ScrSaver()
+//     ScrSaver()
      Oldtime=Seconds()
      SET DEFAULT TO (cOLDSET)
   endif
@@ -486,7 +392,7 @@ LOCAL ARA
   if ntus<>4352
      Oldtime=Seconds()
      if (ara<kes_sure)
-        keysend(i2bin(ntus),.t.)
+//        keysend(i2bin(ntus),.t.)
      endif
   else
      if (ara>=kes_sure)
@@ -578,7 +484,7 @@ Endif
 OldScr:=SaveScreen(0,0,24,79)
 SETCURSOR(1)
 Set key 273 To
-Trapanykey()
+//Trapanykey()
 Keysec()
 OldColor:=SetColor()
 cSifreG1:=Space(5)
@@ -685,7 +591,7 @@ If RAPAYAR->SCR_SUR>0
    Oldtime=Seconds()
    Kes_sure=RAPAYAR->SCR_SUR
    Set key 273 to int_altw
-   Trapanykey("int_tus")
+//   Trapanykey("int_tus")
    Keysec(273,1,-1)
 Endif
 SetColor(OldColor)

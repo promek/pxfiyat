@@ -19,8 +19,8 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>. //
 //////////////////////////////////////////////////////////////////////////
 
-#include "Inkey.Ch"
-//#define DEMO
+#include "inkey.ch"
+
 
 Function _List(Dosya,Kosul,Alan,Baslik,Toplam,Aygit)
  Local nSat,J,K

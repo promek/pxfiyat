@@ -24,22 +24,12 @@ SETMODE(25,80)
 #include "inkey.ch"
 SetCancel(.F.)
 SetBlink(.f.)
-SetShare(2) //Yazmaya Kilitleme Okumaya Ak
-//SetShare(4) //Yazmaya aCIK Okumaya Ak
 Set ScoreBoard Off
 Set Deleted On
 Set Wrap On
 Set Date To British
 Set Epoch To 1970
 Cls
-VGAPALETTE(02,02,26,20) //Koyu Yeil
-VGAPALETTE(05,07,22,26) //Koyu BG
-VGAPALETTE(06,32,24,21) //Kahverengi
-VGAPALETTE(08,30,30,35) //Koyu Gri
-VGAPALETTE(09,14,03,55) //Ak Mavi
-VGAPALETTE(10,26,32,25) //Ak Yeil
-VGAPALETTE(13,0,27,24) //Ak BG
-VGAPALETTE(14,63,56,15) //Sar
 //About()
 SET DEFAULT TO data
 PUBLIC Oldtime,Kes_sure,cBekScr,cClipBoard
@@ -49,10 +39,10 @@ DispBegin()
 SETCURSOR(1)
 If RAPAYAR->SCR_SUR>0
    Keysec()
-   Trapanykey()
+//   Trapanykey()
    Oldtime=Seconds()
    Kes_sure=RAPAYAR->SCR_SUR
-   Trapanykey("int_tus")
+//   Trapanykey("int_tus")
    Keysec(273,1,-1)
    Set key 273 to int_altw
 Endif
@@ -62,20 +52,17 @@ _Win(1,0,23,79,"12/3",3,1) //1/8
 @ 24,0 Say Replicate(" ",80) Color "0/7"
 @ 0,71 Say Date() Color "0/7"
 DispEnd()
-Set Key K_ALT_S To ScrSaver()
 Set Key K_ALT_A To RaporAyar()
 Set Key K_ALT_K To KurGir()
 Set Key K_ALT_G To MakinaGir()
 Set Key K_ALT_P To KasaIslem()
 Set Key K_F1 To Yardim()
-Fontload("py.fnt",1)
-SetFont(1)
 If RAPAYAR->SIF_DR1="û"
    nGirisDur:=Sifre()
    If nGirisDur=0
       Set Color To
       KeySec()
-      Trapanykey()
+//      Trapanykey()
       Cls
       QUIT
    Endif
@@ -112,7 +99,7 @@ If Lastkey()=27
    If Cikis=2
       Set Color To
       KeySec()
-      Trapanykey()
+      //Trapanykey()
       !MODE 80
       Cls
       Exit
@@ -662,7 +649,7 @@ aAdd(FiyatRap,Replicate("Ä",80))
    Set Device To Screen
    Set Printer To
    If nCikis=1 .Or. nCikis=2
-      _TEXTVIEW(cName,0,0,24,79,1,7,0,"AABB",.T.,1,132,4096)
+//      _TEXTVIEW(cName,0,0,24,79,1,7,0,"AABB",.T.,1,132,4096)
    Endif
    RestScreen(0,0,24,79,OldScr1)
   Exit
@@ -806,7 +793,7 @@ Function ToplamRap1(cAygit)
   Set Device To Screen
   Set Printer To
   If cAygit="E" .Or. cAygit="D"
-     _TEXTVIEW(cName,0,0,24,79,1,7,0,"AABB",.T.,1,132,4096)
+//     _TEXTVIEW(cName,0,0,24,79,1,7,0,"AABB",.T.,1,132,4096)
   Endif
 Return
 //////////////////////////////////////////////////////////////////////////////
@@ -1211,7 +1198,7 @@ Function ToplamRap(cAygit,cFiyat)
   Set Device To Screen
   Set Printer To
   If cAygit="E" .Or. cAygit="D"
-     _TEXTVIEW(cName,0,0,24,79,1,7,0,"AABB",.T.,1,132,4096)
+//     _TEXTVIEW(cName,0,0,24,79,1,7,0,"AABB",.T.,1,132,4096)
   Endif
 Return
 //////////////////////////////////////////////////////////////////////////////
@@ -1575,7 +1562,7 @@ DbSeek(dIlkTar,.T.)
  Set Device To Screen
  Set Printer To
  If cAygit="E" .Or. cAygit="D"
-    _TEXTVIEW(cName,0,0,24,79,1,7,0,"AABB",.T.,1,132,4096)
+//    _TEXTVIEW(cName,0,0,24,79,1,7,0,"AABB",.T.,1,132,4096)
  Endif
 Return
 //////////////////////////////////////////////////////////////////////////////
@@ -1864,7 +1851,7 @@ Function FirmaRap()
   Set Printer To
   If nCikis=1 .Or. nCikis=2
   SetCursor(0)
-     _TEXTVIEW(cName,0,0,24,79,1,7,0,"AABB",.T.,1,132,4096)
+//     _TEXTVIEW(cName,0,0,24,79,1,7,0,"AABB",.T.,1,132,4096)
   Endif
 Return
 //////////////////////////////////////////////////////////////////////////////
@@ -1963,7 +1950,7 @@ OldRapSel=Select()
 OldColor:=SetColor()
 If RAPAYAR->SCR_SUR>0
    Keysec()
-   Trapanykey()
+//   Trapanykey()
    Set key 273 to
 Endif
 Set Key K_ALT_A To
@@ -2002,7 +1989,7 @@ SetColor("15/5,14/5,,,15/5")
 Enddo
 If RAPAYAR->SCR_SUR>0
    Set key 273 to int_altw
-   Trapanykey("int_tus")
+//   Trapanykey("int_tus")
    Keysec(273,1,-1)
 Endif
 SetColor(OldColor)
@@ -2129,7 +2116,7 @@ Do Case
    Case Lastkey()=K_ALT_C
         MEMOWRIT("Clipbrd.tmp",&(FIELDNAME(FCOUNT())))
    Case Lastkey()=K_ALT_V
-        KEYSEND(CHARMIX(STRTRAN(MEMOREAD("Clipbrd.tmp"),CHR(10),"") ," "))
+//        KEYSEND(CHARMIX(STRTRAN(MEMOREAD("Clipbrd.tmp"),CHR(10),"") ," "))
         TBosalt()
 EndCase
 Return
