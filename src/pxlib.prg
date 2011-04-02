@@ -20,6 +20,20 @@
 //////////////////////////////////////////////////////////////////////////
 
 #include "inkey.ch"
+
+//////////////////////////////////////////////////////////////////////////////
+Function _TR(cStr)
+Return (HB_UTF8TOSTR(cStr))
+//////////////////////////////////////////////////////////////////////////////
+Function _aTR(aArr)
+    For J:=1 To Len(aArr)
+        aArr[J]=_TR(aArr[J])
+    Next
+Return (aArr)
+//////////////////////////////////////////////////////////////////////////////
+Function _Alert(cMsg,cBut)
+    bRet=Alert(_TR(cMsg),_aTR(cBut))
+Return (bRet)
 //////////////////////////////////////////////////////////////////////////////
 Function TBosalt()
   Keyboard Chr(255)
@@ -27,15 +41,27 @@ Function TBosalt()
 Return(0)
 //////////////////////////////////////////////////////////////////////////////
 FUNCTION _Win
-Parameters X1,Y1,X2,Y2,Renk,Tip,Golge
-//nWin:={"ÚÄ¿³ÙÄÀ³ ","ÉÍ»ºŒÍÈº ","ÕÎÖÔØÏ×Ó "}
-nWin:={"ÚÄ¿³ÙÄÀ³ ","ÆÄ¹º»ÏØÓ ","ÐÑÒÓÔÕÖ× ","ÇÕµ×¶ÑÌÓ "}
+Parameters Y1,X1,Y2,X2,Renk,Tip,Golge
 SET COLOR TO &Renk
-@ X1,Y1,X2,Y2 BOX nWin[Tip]
+@ Y1,X1 clear to Y2,X2
+   DO CASE
+      CASE Tip=1  // TEK CIZGI
+           @ Y1,X1 to Y2,X2 COLOR Renk
+      CASE Tip=2  // CIFT CIZGI
+           @ Y1,X1 to Y2,X2 double COLOR Renk
+      CASE Tip=3  // ICI DOLU ZEMIN
+//           cCER = REPLICATE(CHR(176),9)
+//           @ Y1,X1,Y2,X2 BOX cCER COLOR Renk
+           @ Y1,X1 to Y2,X2 COLOR Renk
+      CASE Tip=4  // DOLU CERCEVE
+//           cCER = REPLICATE(CHR(219),8)
+//           @ Y1,X1,Y2,X2 BOX cCER COLOR Renk
+           @ Y1,X1 to Y2,X2 COLOR Renk
+   ENDCASE
 SET COLOR TO
 IF Golge=1
-   ColorWin(X2+1,Y1+1,X2+1,Y2+1,"W/N")
-   ColorWin(X1+1,Y2+1,X2+1,Y2+1,"W/N")
+   ColorWin(Y2+1,X1+1,Y2+1,X2+1,"W/N")
+   ColorWin(Y1+1,X2+1,Y2+1,X2+1,"W/N")
 ENDIF
 RETURN(0)
 //////////////////////////////////////////////////////////////////////////////
@@ -52,18 +78,18 @@ ENDIF
 RETURN(0)
 //////////////////////////////////////////////////////////////////////////////
 Function _TusYaz(X,Y,aYazi)
-@ X,0 Say Replicate("ÿ",80) Color("W+/W")
+@ X,0 Say Replicate(" ",80) Color("W+/W")
 For z=1 To Len(aYazi)
     nUz=Len(aYazi[z])
     nBas:=AT("~",aYazi[z])
     nSon:=RAT("~",aYazi[z])
     If nBas>1
-       @ X,Y Say SubStr(aYazi[z],1,nBas-1) Color("N/W")
-       @ X,Y+nBas-1 Say SubStr(aYazi[z],nBas+1,(nSon-nBas)-1) Color("R/W")
-       @ X,Y+nSon-2 Say SubStr(aYazi[z],nSon+1,(nUz-nSon)+1) Color("N/W")
+       @ X,Y Say _TR(SubStr(aYazi[z],1,nBas-1)) Color("N/W")
+       @ X,Y+nBas-1 Say _TR(SubStr(aYazi[z],nBas+1,(nSon-nBas)-1)) Color("R/W")
+       @ X,Y+nSon-2 Say _TR(SubStr(aYazi[z],nSon+1,(nUz-nSon)+1)) Color("N/W")
     Else
-       @ X,Y Say SubStr(aYazi[z],nBas+1,(nSon-nBas)) Color("R/W")
-       @ X,Y+nSon-2 Say SubStr(aYazi[z],nSon+1,(nUz-nSon)+1) Color("N/W")
+       @ X,Y Say _TR(SubStr(aYazi[z],nBas+1,(nSon-nBas))) Color("R/W")
+       @ X,Y+nSon-2 Say _TR(SubStr(aYazi[z],nSon+1,(nUz-nSon)+1)) Color("N/W")
     Endif
     Y=Y+nUz-1
 Next
@@ -212,9 +238,9 @@ Y1:=(24-Len(aSecArr))/2
 Y2:=Y1+Len(aSecArr)+1
 OldScr:=SaveScreen(Y1-1,X1,Y2+1,X2+1)
 _Win(Y1,X1,Y2,X2,"14/13",3,1)
-@ Y1-1,X1+(((X2-X1)-Len(aBasArr))/2) Say aBasArr Color("11/8")
+@ Y1-1,X1+(((X2-X1)-Len(aBasArr))/2)+1 Say _TR(aBasArr) Color("11/8")
 SetColor("15/13,15/1,,,15/13")
-DonArr:=Achoice(Y1+1,X1+1,Y2-1,X2-1,aSecArr,.T.,"cMenuFunc")
+DonArr:=Achoice(Y1+1,X1+1,Y2-1,X2-1,_aTR(aSecArr),.T.,"cMenuFunc")
 SetColor()
 RestScreen(Y1-1,X1,Y2+1,X2+1,OldScr)
 Return(DonArr)

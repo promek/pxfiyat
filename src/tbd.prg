@@ -71,15 +71,16 @@ Endif
 @ nTop + 1, nLeft + 1 say Space(nRight - nLeft - 1)
 oB := TBrowseDB(nTop + 1, nLeft + 1, nBottom - 1, nRight - 1)
 If lBoxDraw=.T.
-      @ nTop, nLeft, nBottom, nRight box "ÚÄ¿³ÙÄÀ³ "
+//      @ nTop, nLeft, nBottom, nRight box "ÚÄ¿³ÙÄÀ³ "
+      @ nTop, nLeft to nBottom, nRight 
       ColorWin(nBottom+1,nLeft+1,nBottom+1,nRight+1,"W/N")
       ColorWin(nTop+1,nRight+1,nBottom+1,nRight+1,"W/N")
-      @ nTop + 2, nLeft say "Ã"
-      @ nBottom - 1, nLeft say "Ã"
-      @ nTop + 2, nRight say "Ž"
-      @ nBottom - 1, nRight say "Ž"
-      oB:headSep := "Ä"
-      oB:FootSep := "Ä"
+      @ nTop + 2, nLeft say chr(195)
+      @ nBottom - 1, nLeft say chr(195)
+      @ nTop + 2, nRight say chr(180)
+      @ nBottom - 1, nRight say chr(180)
+      oB:headSep := chr(196)
+      oB:FootSep := chr(196)
 Endif
       oB:ColSep := "³"
 

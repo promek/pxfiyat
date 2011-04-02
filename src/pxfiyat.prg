@@ -29,6 +29,10 @@ Set Deleted On
 Set Wrap On
 Set Date To British
 Set Epoch To 1970
+HB_CDPSELECT('TR857')
+HB_SETTERMCP("TR857",.t.)
+HB_LANGSELECT('TR857')
+
 Cls
 //About()
 SET DEFAULT TO data
@@ -47,9 +51,9 @@ If RAPAYAR->SCR_SUR>0
    Set key 273 to int_altw
 Endif
 _Win(1,0,23,79,"12/3",3,1) //1/8
-@ 0,0 Say  " PROMEK FYAT TAKP PROGRAMI                                                    " Color("0/7")
+@ 0,0 Say  _TR(" pxFiyat FİYAT TAKİP PROGRAMI                                                    ") Color("0/7")
 @ 22,2 Say Padc(Alltrim(RAPAYAR->FIR_ADI),76) Color("7/0")
-@ 24,0 Say Replicate(" ",80) Color "0/7"
+@ 24,0 Say Replicate("-",80) Color "0/7"
 @ 0,71 Say Date() Color "0/7"
 DispEnd()
 Set Key K_ALT_A To RaporAyar()
@@ -84,18 +88,18 @@ Else
 Endif
 KurDurum()
 Do While .T.
-_TusYaz(24,1,{"~F1~-Yardm"})
-Sec:=SecMenu("       ANA MEN      ",;
-            {"Fiyat Toplamlar   ",;
+_TusYaz(24,1,{"~F1~-Yardım"})
+Sec:=SecMenu("      ANA MENÜ     ",;
+            {"Fiyat Toplamları   ",;
              "Fiyat Listeleri    ",;
-             "Fiyat Girileri    ",;
-             "Kur lemleri      ",;
-             "Firma lemleri    ",;
-             "Teklif Dzenleme   ",;
+             "Fiyat Girişleri    ",;
+             "Kur İşlemleri      ",;
+             "Firma İşlemleri    ",;
+             "Teklif Düzenleme   ",;
              "Genel Parametreler ",;
-             "Dosya Dzenleme    "})
+             "Dosya Düzenleme    "})
 If Lastkey()=27
-   Cikis:=Alert("Program sonlansn m?",{"Hayr","Evet"})
+   Cikis:=_Alert("Program sonlansın mı?",{"Hayır","Evet"})
    If Cikis=2
       Set Color To
       KeySec()
@@ -156,8 +160,8 @@ If RAPAYAR->SIF_DR2="û"
    Endif
 Endif
 OldScr:=SaveScreen(0,0,24,79)
- _TusYaz(24,1,{"~ENTER~-Seim","~CTRL+INS~-Ekle","~CTRL+ENTER~-De§itir",;
-               "~CTRL+DEL~-Sil","~ESC~-k"})
+ _TusYaz(24,1,{"~ENTER~-Seçim","~CTRL+INS~-Ekle","~CTRL+ENTER~-Değiştir",;
+               "~CTRL+DEL~-Sil","~ESC~-Çıkış"})
 Select ANAGRUP
 GAlan:={"AGrup_Ad"}
 GBasl:={"ANA GRUP"}
@@ -179,8 +183,8 @@ Do Case
          _SaveScr(2,29,22,51,"GirScr2")
          GrupKod=AGrup_No
          Select GRUP
-         _TusYaz(24,1,{"~ENTER~-Seim","~CTRL+INS~-Ekle","~CTRL+ENTER~-De§itir",;
-                     "~CTRL+DEL~-Sil","~F7~-Aklama","~ESC~-k"})
+         _TusYaz(24,1,{"~ENTER~-Seçim","~CTRL+INS~-Ekle","~CTRL+ENTER~-Değiştir",;
+                     "~CTRL+DEL~-Sil","~F7~-Açıkklama","~ESC~-Çık"})
          fAlan:={"Grup_Ad"}
          fBasl:={"ALT GRUP"}
          fPict:={"@K"}
