@@ -232,9 +232,9 @@ Return
 Function SecMenu(aBasArr,aSecArr)
 Local X1,Y1,X2,Y2,OldScr
 SETCURSOR(0)
-X1:=(80-Len(aSecarr[1]))/2
-X2:=X1+Len(aSecArr[1])+1
-Y1:=(24-Len(aSecArr))/2
+X1:=(79-Len(aSecarr[1]))/2
+X2:=X1+Len(aSecArr[1])
+Y1:=(23-Len(aSecArr))/2
 Y2:=Y1+Len(aSecArr)+1
 OldScr:=SaveScreen(Y1-1,X1,Y2+1,X2+1)
 _Win(Y1,X1,Y2,X2,"14/13",3,1)
@@ -364,37 +364,24 @@ FUNCTION cUserFunction( nMode, nCurElement, nRowPos )
 RETURN nRetVal
 //////////////////////////////////////////////////////////////////////////////
 FUNCTION ABOUT
-LOCAL mrenk,mcrsr,absat,aekran,cOLDFNT
-SETCURSOR(0)
-DispBegin()
-    _Win(3,19,21,60,"R/7",3,1)
-    @ 04,20 Say "ÁÂÃÄ" Color("B/7")
-    @ 05,20 Say "ÅÆÇÈ" Color("B/7")
-    @ 04,56 Say "ÁÂÃÄ" Color("B/7")
-    @ 05,56 Say "ÅÆÇÈ" Color("B/7")
-    @ 04,28 Say "                         " Color "N/7"
-    @ 05,28 Say "                         " Color "N/7"
-    @ 06,28 Say "                         " Color "N/7"
-    @ 07,20 SAY "       FİYAT LİSTESİ PROGRAMI v2.0      " COLOR "N/W"
-    @ 08,20 SAY "----------------------------------------" COLOR "N/W"
-    @ 09,20 SAY "* Programın kullanımı serbesttir.       " COLOR "N/W"
-    @ 10,20 SAY "* Ayrıca para ile satılamaz.            " COLOR "N/W"
-    @ 11,20 SAY "* Programın kullanımıyla oluşabilecek   " COLOR "N/W"
-    @ 12,20 SAY "  veri kayıplarından, kullanıcı ve/veya " COLOR "N/W"
-    @ 13,20 SAY "  üçüncü şahısların zarara uğramasından," COLOR "N/W"
-    @ 14,20 SAY "  genel, özel, doğrudan yada dolaylı    " COLOR "N/W"
-    @ 15,20 SAY "  oluşabilecek herhangi bir zarardan,   " COLOR "N/W"
-    @ 16,20 SAY "  Promek Yazılım SORUMLU TUTULAMAZ.     " COLOR "R/W"
-    @ 17,20 SAY "----------------------------------------" COLOR "N/W"
-    @ 18,20 SAY "                   http://www.promek.net" COLOR "B/W"
-    @ 19,20 SAY "                       promek@promek.net" COLOR "B/W"
-    @ 20,20 SAY "                     (c)1997-ibrahim ŞEN" COLOR "B/W"
+    LOCAL mrenk,mcrsr,absat,aekran,cOLDFNT
+    SETCURSOR(0)
+    DispBegin()
+    _Win(6,16,18,64,"R/7",2,1)
 
-   absat=6
-   mcrsr=setcursor()
-       NO=0
-       TBosalt()
-DispEnd()
+    @ 07,17 SAY _TR("                 pxFiyat v1.0                  ") COLOR "B/W"
+    @ 08,17 SAY _TR("         Fiyat Listeleri Takip Programı        ") COLOR "B/W"
+    @ 10,17 SAY _TR(" pxFiyat için HİÇ BİR GARANTİ verilmemektedir. ") COLOR "N/W"
+    @ 11,17 SAY _TR(" Bu bir SERBEST yazılımdır.                    ") COLOR "N/W"
+    @ 12,17 SAY _TR(" Belli koşullar altında yeniden dağıtılabilir. ") COLOR "N/W"
+    @ 13,17 SAY _TR(" Detaylar için : <http://www.gnu.org/licenses> ") COLOR "N/W"
+    @ 15,17 SAY _TR("               <http://pxfiyat.googlecode.com> ") COLOR "R/W"
+    @ 16,17 SAY _TR("               Telif Hakkı (c)2011,ibrahim ŞEN ") COLOR "N/W"
+    @ 17,17 SAY _TR("                          <ibrahim@promek.net> ") COLOR "N/W"
+
+    mcrsr=setcursor()
+    DispEnd()
+    inkey(0)
     setcursor(mcrsr)
 RETURN NIL
 //////////////////////////////////////////////////////////////////////////////

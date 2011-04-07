@@ -34,9 +34,10 @@ HB_SETTERMCP("TR857",.t.)
 HB_LANGSELECT('TR857')
 
 Cls
-//About()
-SET DEFAULT TO data
+About()
+
 PUBLIC Oldtime,Kes_sure,cBekScr,cClipBoard
+SET DEFAULT TO data
 USE RAPAYAR New
 
 DispBegin()
@@ -51,16 +52,16 @@ If RAPAYAR->SCR_SUR>0
    Set key 273 to int_altw
 Endif
 _Win(1,0,23,79,"12/3",3,1) //1/8
-@ 0,0 Say  _TR(" pxFiyat FİYAT TAKİP PROGRAMI                                                    ") Color("0/7")
+@ 0,0 Say Replicate(" ",80) Color("W+/W")
+@ 0,0 Say _TR(" pxFiyat v1.0 - Fiyat Listeleri Takip Programı") Color("N/W")
 @ 22,2 Say Padc(Alltrim(RAPAYAR->FIR_ADI),76) Color("7/0")
-@ 24,0 Say Replicate("-",80) Color "0/7"
 @ 0,71 Say Date() Color "0/7"
 DispEnd()
 Set Key K_ALT_A To RaporAyar()
 Set Key K_ALT_K To KurGir()
 Set Key K_ALT_G To MakinaGir()
 Set Key K_ALT_P To KasaIslem()
-Set Key K_F1 To Yardim()
+Set Key K_ALT_H To Yardim()
 If RAPAYAR->SIF_DR1="û"
    nGirisDur:=Sifre()
    If nGirisDur=0
@@ -88,7 +89,7 @@ Else
 Endif
 KurDurum()
 Do While .T.
-_TusYaz(24,1,{"~F1~-Yardım"})
+_TusYaz(24,1,{"~ALT+H~-Yardım"})
 Sec:=SecMenu("      ANA MENÜ     ",;
             {"Fiyat Toplamları   ",;
              "Fiyat Listeleri    ",;
@@ -195,7 +196,7 @@ Do Case
          _SaveScr(,,,,)
     Case ( nKey == K_CTRL_ENTER )
          If XKey=.F.
-            nCho:=Alert("Kayt de§itirilsin mi?",{"Hayr","Evet"})
+            nCho:=_Alert("Kayıt değiştirilsin mi?",{"Hayır","Evet"})
          Else
             nCho=2
          Endif
@@ -204,7 +205,7 @@ Do Case
             XKey=.F.
          Endif
     Case ( nKey == K_CTRL_INS )
-         nCho:=Alert("Yeni kayt eklensin mi?",{"Hayr","Evet"})
+         nCho:=_Alert("Yeni kayıt eklensin mi?",{"Hayır","Evet"})
          If nCho=2
             nKay=1
             Do While .T.
@@ -227,7 +228,7 @@ Do Case
             Enddo
         Endif
     Case ( nKey == K_CTRL_DEL )
-         nCho:=Alert("Kayt silinsin mi?",{"Hayr","Evet"})
+         nCho:=_Alert("Kayıt silinsin mi?",{"Hayır","Evet"})
              If nCho=2
                 dKay=AGRUP_NO
                 Delete
@@ -1437,6 +1438,7 @@ Do Case
         nOldKur:=PH_KUR
         Doget(oB,lAppend)
         oCol := oB:getColumn(2)
+
 //        If Eval(oCol:block)<2
 //           Keyboard Chr(13)
 //        Else
@@ -2548,27 +2550,27 @@ YarScr:=SaveScreen(0,0,24,79)
 SETCURSOR(0)
 _Win(1,1,23,51,"14/5",3,1)
 SetColor("7/5,7/1,,,7/5")
-@ 01,22 Say " Yardm " Color"15/1"
-@ 02,02 Say "ALT+A: Rapor ayarlar"
-@ 03,02 Say "ÀÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ"
-@ 04,02 Say "  ÃG.Toplam - F10: Rapor kuru seimi"
-@ 05,02 Say "  ÃBalk   - F10: Teklif bal§ oluturma"
-@ 06,02 Say "  ÀDipnot   - F10: Dipnot seimi"
-@ 07,02 Say "   ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÙ"
-@ 08,02 Say "ALT+P: Kasa ilemleri       ÀF10:Dipnot Oluturma"
-@ 09,02 Say "ÀÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ"
-@ 10,02 Say "  Ã#KOD: TL. giri/k toplamlarn etkilemeyen"
-@ 11,02 Say "  ³      zel hesap kodlar (rnek: #DOLAR, #EK)"
-@ 12,02 Say "  ÀYn : Kasa kodu hesap yn (G:Giri, :k)"
-@ 13,02 Say "         (Her iki yn iin bo braklmal)"
-@ 15,02 Say "ALT+G            : Paralara gurup oluturma"
-@ 16,02 Say "ALT+K            : Kur ilemleri"
-@ 17,02 Say "ALT+S            : Ekran koruyucuyu altrma"
-@ 18,02 Say "ALT+C            : Kopyala"
-@ 19,02 Say "ALT+V            : Yaptr"
-@ 20,02 Say "Girite ifre    : Program giri ifresi"
-@ 21,02 Say "Gvenlik ifre   : Kasa, fiyat girileri ve"
-@ 22,02 Say "                   genel parametreler ifresi"
+@ 01,22 Say _TR(" Yardım ") Color"15/1"
+@ 02,02 Say _TR("ALT+A: Rapor ayarları")
+@ 03,02 Say _TR("---------------------")
+@ 04,02 Say _TR("  G.Toplam - F10: Rapor kuru seçimi")
+@ 05,02 Say _TR("  Başlık   - F10: Teklif başlığı oluşturma")
+@ 06,02 Say _TR("  Dipnot   - F10: Dipnot seçimi")
+@ 07,02 Say _TR("")
+@ 08,02 Say _TR("ALT+P: Kasa işlemleri       *F10:Dipnot Oluşturma")
+@ 09,02 Say _TR("---------------------")
+@ 10,02 Say _TR("  #KOD: TL. giriş/çıkış toplamlarını etkilemeyen")
+@ 11,02 Say _TR("        Özel hesap kodları (Örnek: #DOLAR, #ÇEK)")
+@ 12,02 Say _TR("  Yön : Kasa kodu hesap yönü (G:Giriş, Ç:Çıkış)")
+@ 13,02 Say _TR("        (Her iki yön için boş bırakılmalı)")
+@ 15,02 Say _TR("ALT+G            : Parçalara gurup oluşturma")
+@ 16,02 Say _TR("ALT+K            : Kur işlemleri")
+//@ 17,02 Say "ALT+S            : Ekran koruyucuyu altrma"
+@ 18,02 Say _TR("ALT+C            : Kopyala")
+@ 19,02 Say _TR("ALT+V            : Yapıştır")
+@ 20,02 Say _TR("Girişte Şifre    : Program giriş şifresi")
+@ 21,02 Say _TR("Güvenlik Şifre   : Kasa, fiyat girişleri ve")
+@ 22,02 Say _TR("                   genel parametreler şifresi")
 Inkey(0)
 SetColor(YarColor)
 SetCursor(YarCursor)
