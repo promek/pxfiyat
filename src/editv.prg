@@ -125,6 +125,7 @@ FUNCTION EditView()
                cVal := UnPad( b )
                TxtScr:=SaveScreen(0,0,24,79)
 //               _TEXTVIEW(cVal,0,0,24,79,1,7,0,"AABB",.T.,1,132,4096)
+               __run("less --tilde --shift=3 data/"+cVal)
                RestScreen(0,0,24,79,TxtScr)
             ELSEIF nKey == K_F4 .AND.;
                !(CHR(017) $ EVAL((b:getColumn(1)):block))
@@ -259,6 +260,7 @@ STATIC FUNCTION PaintScr( nTop, nLeft,nBottom, nRight )
    _Win(nTop,nLeft,nBottom,nRight,"15/1",1,1)
    @ nTop+1,nLeft+1 SAY "Dosya Adç"   COLOR "GR+/B"
    @ nTop+1,nLeft+14 SAY "Kayçt T."   COLOR "GR+/B"
+
 
 
  _TusYaz(24,1,{"~F3~-òncele","~F4~-DÅzenle",;

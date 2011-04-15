@@ -320,10 +320,10 @@ Function GetAlert(cBaslik,nGet,aSec)
    cScr := SAVESCREEN(nTop,nLeft,nBottom+1,nRight+1)
    _Win(nTop,nLeft,nBottom,nRight,"15/13",1,1)
    SetColor("15/13,15/1,,,15/13")
-   @ nTop+1,nLeft+1 Say cBaslik
+   @ nTop+1,nLeft+1 Say _TR(cBaslik)
    @ nTop+3,nPos3+nGet+1 Say ".TXT"
-   @ nTop+5,nPos1 SAY aSec[1]
-   @ nTop+5,nPos2 SAY aSec[2]
+   @ nTop+5,nPos1 SAY _TR(aSec[1])
+   @ nTop+5,nPos2 SAY _TR(aSec[2])
 
    cGet := SPACE(nGet)
    SETCURSOR(1)

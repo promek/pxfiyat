@@ -82,7 +82,7 @@ If lBoxDraw=.T.
       oB:headSep := chr(196)
       oB:FootSep := chr(196)
 Endif
-      oB:ColSep := "³"
+      oB:ColSep := chr(179)
 
       If cKosul1!=NIL
          Seek (cKosul1)
@@ -97,7 +97,7 @@ Endif
       For J=1 To Len(aAlan)
           aAlanl=aAlan[J]
           If aBasl!=NIL
-             aBaslk=aBasl[J]
+             aBaslk=_TR(aBasl[J])
              If lGetLock=.T.
                 oB:addColumn( TBColumnNew(aBaslk, FieldBlock(aAlanl) ))
              Else

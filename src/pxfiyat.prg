@@ -61,7 +61,7 @@ Set Key K_ALT_A To RaporAyar()
 Set Key K_ALT_K To KurGir()
 Set Key K_ALT_G To MakinaGir()
 Set Key K_ALT_P To KasaIslem()
-Set Key K_ALT_H To Yardim()
+Set Key K_ALT_Y To Yardim()
 If RAPAYAR->SIF_DR1="û"
    nGirisDur:=Sifre()
    If nGirisDur=0
@@ -89,7 +89,7 @@ Else
 Endif
 KurDurum()
 Do While .T.
-_TusYaz(24,1,{"~ALT+H~-Yardım"})
+_TusYaz(24,1,{"~ALT+Y~-Yardım"})
 Sec:=SecMenu("      ANA MENÜ     ",;
             {"Fiyat Toplamları   ",;
              "Fiyat Listeleri    ",;
@@ -161,8 +161,8 @@ If RAPAYAR->SIF_DR2="û"
    Endif
 Endif
 OldScr:=SaveScreen(0,0,24,79)
- _TusYaz(24,1,{"~ENTER~-Seçim","~CTRL+INS~-Ekle","~CTRL+ENTER~-Değiştir",;
-               "~CTRL+DEL~-Sil","~ESC~-Çıkış"})
+_TusYaz(24,1,{"~ENTER~-Seçim","~F2~-Ekle","~F3~-Sil",;
+               "~F4~-Değiştir","~ESC~-Çıkış"})
 Select ANAGRUP
 GAlan:={"AGrup_Ad"}
 GBasl:={"ANA GRUP"}
@@ -184,8 +184,8 @@ Do Case
          _SaveScr(2,29,22,51,"GirScr2")
          GrupKod=AGrup_No
          Select GRUP
-         _TusYaz(24,1,{"~ENTER~-Seçim","~CTRL+INS~-Ekle","~CTRL+ENTER~-Değiştir",;
-                     "~CTRL+DEL~-Sil","~F7~-Açıkklama","~ESC~-Çık"})
+         _TusYaz(24,1,{"~ENTER~-Seçim","~F2~-Ekle","~F3~-Sil",;
+                       "~F4~-Değiştir","~F7~-Açıkklama","~ESC~-Çık"})
          fAlan:={"Grup_Ad"}
          fBasl:={"ALT GRUP"}
          fPict:={"@K"}
@@ -194,7 +194,7 @@ Do Case
          SetColor()
          Select ANAGRUP
          _SaveScr(,,,,)
-    Case ( nKey == K_CTRL_ENTER )
+    Case ( nKey == K_F4 )
          If XKey=.F.
             nCho:=_Alert("Kayıt değiştirilsin mi?",{"Hayır","Evet"})
          Else
@@ -204,7 +204,7 @@ Do Case
             Doget(oB,lAppend)
             XKey=.F.
          Endif
-    Case ( nKey == K_CTRL_INS )
+    Case ( nKey == K_F2 )
          nCho:=_Alert("Yeni kayıt eklensin mi?",{"Hayır","Evet"})
          If nCho=2
             nKay=1
@@ -227,7 +227,7 @@ Do Case
                Endif
             Enddo
         Endif
-    Case ( nKey == K_CTRL_DEL )
+    Case ( nKey == K_F3 )
          nCho:=_Alert("Kayıt silinsin mi?",{"Hayır","Evet"})
              If nCho=2
                 dKay=AGRUP_NO
@@ -263,8 +263,8 @@ Local lRet:=.T.
 Local nKay,dKay
 Do Case
     Case ( nKey == K_ESC )
-        _TusYaz(24,1,{"~ENTER~-Seim","~CTRL+INS~-Ekle","~CTRL+ENTER~-De§itir",;
-                    "~CTRL+DEL~-Sil","~F7~-Aklama","~ESC~-k"})
+         _TusYaz(24,1,{"~ENTER~-Seçim","~F2~-Ekle","~F3~-Sil",;
+                    "~F4~-Değiştir","~F7~-Açıklama","~ESC~-Çık"})
          lRet=.F.
     Case ( nKey == K_ENTER )
          _Savescr(2,29,22,51,"GirScr3")
@@ -272,21 +272,21 @@ Do Case
          Select Grup
          Donhal=Grup_Ad
          Select Fiylis
-         @ 1,0 Say Padc(Alltrim(DonHal)+"-"+"FYAT GR KARTI",80) Color("4/3")
+         @ 1,0 Say Padc(Alltrim(DonHal)+"-"+"FİYAT GİRİŞ KARTI",80) Color("4/3")
          _TusYaz(24,1,{"~F2~-Ekle","~F3~-Sil","~F4~-Para Birimi",;
-                       "~F5~-Kdv Oran","~F6~-Firma","~F7~-Aklama","~ESC~-k"})
+                       "~F5~-Kdv Oranı","~F6~-Firma","~F7~-Açıklama","~ESC~-Çıkış"})
          Alan:={"CINSI","ALFIY","KARYZ","SAFIY","SKARI","BIRIM","KDVOR","FIRMA"}
          Pict:={"@S18","999,999,999.99","999","999,999,999.99","999,999,999.99","@K","99","@K"}
-         Basl:={"Maln Cinsi","Al.Fiy."," % ","Sat.Fiy.",;
+         Basl:={"Malın Cinsi","Al.Fiy."," % ","Sat.Fiy.",;
                 "Sat.Kr","  ","KDV","Fir"}
          SetColor("15/6")
          MyBrowse(2,0,22,79,Alan,Basl,Pict,"GirFunc3","MALNO",MalKod,,.T.,.F.,0,4,.T.)
          SetColor()
          Select Grup
          _Savescr(,,,,)
-    Case ( nKey == K_CTRL_ENTER )
+    Case ( nKey == K_F4 )
          If XKey=.F.
-            nCho:=Alert("Kayt de§itirilsin mi?",{"Hayr","Evet"})
+            nCho:=_Alert("Kayıt değiştirilsin mi?",{"Hayır","Evet"})
          Else
             nCho=2
          Endif
@@ -295,8 +295,8 @@ Do Case
             XKey=.F.
          Endif
 
-    Case ( nKey == K_CTRL_INS )
-         nCho:=Alert("Yeni kayt eklensin mi?",{"Hayr","Evet"})
+    Case ( nKey == K_F2 )
+         nCho:=_Alert("Yeni kayıt eklensin mi?",{"Hayır","Evet"})
          If nCho=2
             Set Order To 2
             nKay=1
@@ -321,8 +321,8 @@ Do Case
             Enddo
           Set Order To 1
         Endif
-    Case ( nKey == K_CTRL_DEL )
-         nCho:=Alert("Kayt silinsin mi?",{"Hayr","Evet"})
+    Case ( nKey == K_F3 )
+         nCho:=_Alert("Kayıt silinsin mi?",{"Hayır","Evet"})
              If nCho=2
                 dKay=GRUP_NO
                 Delete
@@ -341,7 +341,7 @@ Do Case
 
     Case ( nKey == K_F7 )
       OldScr1:=SaveScreen(0,0,24,79)
-      _TusYaz(24,1,{"~F2~-Kaydet ve k","~ESC~-k"})
+      _TusYaz(24,1,{"~F2~-Kaydet ve Çık","~ESC~-Çıkış"})
       _Win(8,8,16,71,"14/5",1,0)
       SetColor("15/5,15/1,,,15/5")
       SetCursor(1)
@@ -361,8 +361,8 @@ Local lRet:=.T.
 Local nKay
 Do Case
    case ( nKey == K_ESC )
-        _TusYaz(24,1,{"~ENTER~-Seim","~CTRL+INS~-Ekle","~CTRL+ENTER~-De§itir",;
-                    "~CTRL+DEL~-Sil","~F7~-Aklama","~ESC~-k"})
+         _TusYaz(24,1,{"~ENTER~-Seçim","~F2~-Ekle","~F3~-Sil",;
+                    "~F4~-Değiştir","~F7~-Açıklama","~ESC~-Çık"})
         lRet=.F.
 
    case nKey == K_RETURN
@@ -396,7 +396,7 @@ Do Case
         sFound=.T.
 
   case ( nKey == K_F3 )
-    nSec:=Alert("Kayt silinsin mi?",{"Hayr","Evet"})
+    nSec:=_Alert("Kayıt silinsin mi?",{"Hayır","Evet"})
     If nSec=2
        delete
        Pack
@@ -421,7 +421,7 @@ Do Case
        nKdv=0
        MesScr:=SaveScreen(10,26,14,53)
        _Win(10,26,13,52," 15/ 5",1,1)
-       @ 11,27 Say "K.D.V. Orann Giriniz :" Color(" 15/ 5")
+       @ 11,27 Say _TR("K.D.V. Oranını Giriniz :") Color(" 15/ 5")
        @ 12,37 Get nKdv Pict "99"
        Read
        If Lastkey()!=27 .And. nKdv!=0
@@ -444,7 +444,7 @@ Do Case
 
     Case ( nKey == K_F7 )
       OldScr1:=SaveScreen(0,0,24,79)
-      _TusYaz(24,1,{"~F2~-Kaydet ve k","~ESC~-k"})
+      _TusYaz(24,1,{"~F2~-Kaydet ve Çık","~ESC~-Çıkış"})
       _Win(8,8,16,71,"14/5",1,0)
       SetColor("15/5,15/1,,,15/5")
       SetCursor(1)
@@ -469,7 +469,7 @@ Return(lRet)
 //////////////////////////////////////////////////////////////////////////////
 Function ListeRapor()
 OldScr0:=SaveScreen(0,0,24,79)
-_TusYaz(24,1,{"~F5~-Tek Sutun Rapor","~F6~-ift Sutun Rapor","~F9~-Gurup Srala","~ESC~-k"})
+_TusYaz(24,1,{"~F5~-Tek Sutun Rapor","~F6~-Çift Sutun Rapor","~F9~-Gurup Sırala","~ESC~-Çıkış"})
 SETCURSOR(0)
 nGrupNo=0
 Select ANAGRUP
@@ -498,12 +498,12 @@ Do Case
          CiftSutunRapor("S")
          Select ANAGRUP
     Case ( nKey == K_F9 )
-         _TusYaz(24,1,{"~ENTER~-Giri","~ESC~-k"})
+         _TusYaz(24,1,{"~ENTER~-Giriş","~ESC~-Çıkış"})
          RapScr2:=SaveScreen(2,27,23,54)
          GrupKod=AGrup_No
          Select GRUP
          fAlan:={"Grup_Ad","Grup_Sr"}
-         fBasl:={"ALT GRUP","Sra"}
+         fBasl:={"ALT GRUP","Sıra"}
          fPict:={"@K","@!"}
          SetColor("15/5")
          MyBrowse(2,27,22,53,fAlan,fBasl,fPict,"RapFunc2","GRUP_KD",GrupKod,,.T.,.T.,1,2,.T.)
@@ -523,7 +523,7 @@ Local lRet:=.T.
 Local nKay,dKay
 Do Case
     Case ( nKey == K_ESC )
-         _TusYaz(24,1,{"~F5~-Tek Sra Rapor","~F6~-ift Sra Rapor","~F9~-Srala","~ESC~-k"})
+         _TusYaz(24,1,{"~F5~-Tek Sıra Rapor","~F6~-Çift Sıra Rapor","~F9~-Sırala","~ESC~-Çıkış"})
          lRet=.F.
    case nKey == K_ENTER
       If sFound=.T. .And. lGetLock=.T. .And. oB:COLPOS=2
@@ -536,12 +536,12 @@ Function CiftSutunRapor(cFiyat)
 BEGIN SEQUENCE
 OldScr1:=SaveScreen(0,0,24,79)
 Do While .T.
-nCikis:=Alert("Rapor aygtn seiniz.",{"Ekran","Dosya","Yazc"})
+nCikis:=_Alert("Rapor aygıtını seçiniz.",{"Ekran","Dosya","Yazıcı"})
 If nCikis=0
    Break
 Endif
 If nCikis=3
-   nCho:=Alert("Yazcy hazrlayp ENTER tuuna basnz.",{"Tamam","Vazge"})
+   nCho:=_Alert("Yazıcıyı hazırlayıp ENTER tuşuna basınız.",{"Tamam","Vazgeç"})
    If nCho=1
       Dur=PRN_OFF()
       If Dur="Kapali"
@@ -553,15 +553,15 @@ If nCikis=3
 Endif
 cName=""
 If nCikis=2
-   cName := GetAlert("Dosya adn giriniz.",8,{"Tamam","Vazge"})
+   cName := GetAlert("Dosya adını giriniz.",8,{"Tamam","Vazgeç"})
    If EMPTY(cName)
       Break
    Else
-      cName := AllTrim(cName)+".TXT"
+      cName := AllTrim(cName)+".txt"
    Endif
 Endif
 If nCikis=1 .Or. EMPTY(cName)
-   cName := "Gecici.Txt"
+   cName := "gecici.txt"
 Endif
 If nCikis=2 .Or. nCikis=1
    Set Printer to &cName
@@ -655,6 +655,7 @@ aAdd(FiyatRap,Replicate("Ä",80))
    Set Printer To
    If nCikis=1 .Or. nCikis=2
 //      _TEXTVIEW(cName,0,0,24,79,1,7,0,"AABB",.T.,1,132,4096)
+      __run("less --tilde --shift=3 data/gecici.txt")
    Endif
    RestScreen(0,0,24,79,OldScr1)
   Exit
@@ -663,7 +664,7 @@ END
 Return
 //////////////////////////////////////////////////////////////////////////////
 Function TekSutunRapor()
-nCikis:=Alert("Rapor aygtn seiniz.",{"Ekran","Dosya","Yazc"})
+nCikis:=_Alert("Rapor aygıtını seçiniz.",{"Ekran","Dosya","Yazıcı"})
 OldScr1:=SaveScreen(0,0,24,79)
 Select Fiylis
 If nCikis=1
@@ -672,7 +673,7 @@ Elseif nCikis=2
    lRapor=.T.
    ToplamRap1("D")
 Elseif nCikis=3
-   nCho:=Alert("Yazcy hazrlayp ENTER tuuna basnz.",{"Tamam","Vazge"})
+   nCho:=_Alert("Yazıcıyı hazırlayıp ENTER tuşuna basınız.",{"Tamam","Vazgeç"})
    If nCho=1
       Dur=PRN_OFF()
       If Dur<>"Kapali"
@@ -756,7 +757,7 @@ Function ToplamRap1(cAygit)
           aAdd(aSatir,Repl("-",80))
 //          aAdd(aSatir,Padr("Ortak zellikleri:",79))
           nLines:=MLCOUNT(GRUP->GRUP_AC,80,1,.T.)
-          aAdd(aSatir,"Ortak zellikleri:"+MEMOLINE(GRUP->GRUP_AC,80,1,1,.T.))
+          aAdd(aSatir,"Ortak Özellikleri:"+MEMOLINE(GRUP->GRUP_AC,80,1,1,.T.))
           For nLine=2 to nLines
               aAdd(aSatir,Space(18)+MEMOLINE(GRUP->GRUP_AC,80,nLine,1,.T.))
           Next
@@ -768,16 +769,16 @@ Function ToplamRap1(cAygit)
   aAdd(aSatir,Repl("-",80))
   cName:=""
   If cAygit="D"
-     cName := GetAlert("Dosya adn giriniz.",8,{"Tamam","Vazge"})
+     cName := GetAlert("Dosya adını giriniz.",8,{"Tamam","Vazgeç"})
      If Empty(cName)
         Return
      Else
-        cName :=Alltrim(cName)+".TXT"
+        cName :=Alltrim(cName)+".txt"
      Endif
   Endif
 
   If cAygit="E" .Or. Empty(cName)
-     cName:="Gecici.txt"
+     cName:="gecici.txt"
   Endif
 
   If cAygit="E" .Or. cAygit="D"
@@ -799,12 +800,13 @@ Function ToplamRap1(cAygit)
   Set Printer To
   If cAygit="E" .Or. cAygit="D"
 //     _TEXTVIEW(cName,0,0,24,79,1,7,0,"AABB",.T.,1,132,4096)
+     __run("less --tilde --shift=3 data/gecici.txt")
   Endif
 Return
 //////////////////////////////////////////////////////////////////////////////
 Function FiyatTop()
 OldScr0:=SaveScreen(0,0,24,79)
-_TusYaz(24,1,{"~ENTER~-Seim","~ESC~-k"})
+_TusYaz(24,1,{"~ENTER~-Seçim","~ESC~-Çıkış"})
 TBosalt()
 MalKod=0
 GrupKod=0
@@ -831,8 +833,8 @@ Local lRet:=.T.
 Do Case
     Case ( nKey == K_ESC )
          If lRapor=.F.
-            nCho:=Alert("Seilenler kaydedilmedi!;"+;
-                        "devam edilsin mi?",{"Hayr","Evet"})
+            nCho:=_Alert("Seçilenler kaydedilmedi!;"+;
+                        "devam edilsin mi?",{"Hayır","Evet"})
             If nCho=2
                lRet=.F.
             Endif
@@ -842,10 +844,10 @@ Do Case
          GrpGeriAlAktar()
          Select ANAGRUP
          TBosalt()
-         _TusYaz(24,1,{"~ENTER~-Seim","~ESC~-k"})
+         _TusYaz(24,1,{"~ENTER~-Seçim","~ESC~-Çıkış"})
     Case ( nKey == K_ENTER )
          _Savescr(2,0,22,19,"GrupScr1")
-         _TusYaz(24,1,{"~ENTER/TAB~-Seim","~F5~-Rapor","~F6~-Aktar","~F7~-Getir","~F8~-Sfrla","~ESC~-k"})
+         _TusYaz(24,1,{"~ENTER/TAB~-Seçim","~F5~-Rapor","~F6~-Aktar","~F7~-Getir","~F8~-Sıfırla","~ESC~-Çıkış"})
          GrupKod=AGRUP_NO
          Select GRUP
          fAlan:={"Grup_Ad"}
@@ -859,7 +861,7 @@ Do Case
          _Savescr(,,,,)
          Select ANAGRUP
          TBosalt()
-         _TusYaz(24,1,{"~ENTER~-Seim","~ESC~-k"})
+         _TusYaz(24,1,{"~ENTER~-Seçim","~ESC~-Çıkış"})
 EndCase
 Return(lRet)
 //////////////////////////////////////////////////////////////////////////////
@@ -874,11 +876,11 @@ Do Case
          Select Grup
          Donhal=Grup_Ad
          Select Fiylis
-         @ 1,0 Say Padc(Alltrim(DonHal)+"-"+" Seim Kart",80)  Color("4/3")
-         _TusYaz(24,1,{"~SPACE~-aretle","~DEL~-areti Kaldr","~ESC/TAB~-k"})
+         @ 1,0 Say Padc(Alltrim(DonHal)+"-"+_TR(" Seçim Kartı"),80)  Color("4/3")
+         _TusYaz(24,1,{"~SPACE~-İşaretle","~DEL~-İşareti Kaldır","~ESC/TAB~-Çıkış"})
          Alan:={"CINSI","SAFIY","BIRIM","MIKTR","OKTOP"}
          Picture:={"@S37","999,999,999.99","@K","99","@K"}
-         Baslik:={"Aklama","Fiyat","  ","Ad"," "}
+         Baslik:={"Açıklama","Fiyat","  ","Ad"," "}
          SetColor("15/6") //15/3
          oB:DEHILITE()
          MyBrowse(2,20,22,79,Alan,Baslik,Picture,"TopFunc3","MALNO",MalKod,,.F.,.F.,0,0,.T.)
@@ -887,7 +889,7 @@ Do Case
          Select Grup
          TBosalt()
     Case (nKey == K_F5 )
-         nCikis:=Alert("Rapor aygtn seiniz.",{"Ekran","Dosya","Yazc"})
+         nCikis:=_Alert("Rapor aygıtını seçiniz.",{"Ekran","Dosya","Yazıcı"})
          OldScr1:=SaveScreen(0,0,24,79)
          Select Fiylis
          If nCikis=1
@@ -896,7 +898,7 @@ Do Case
             lRapor=.T.
             ToplamRap("D","S")
          Elseif nCikis=3
-            nCho:=Alert("Yazcy hazrlayp ENTER tuuna basnz.",{"Tamam","Vazge"})
+            nCho:=_Alert("Yazıcıyı hazırlayıp ENTER tuşuna basınız.",{"Tamam","Vazgeç"})
             If nCho=1
                Dur=PRN_OFF()
                If Dur<>"Kapali"
@@ -920,7 +922,7 @@ Do Case
          lRapor=.F.
     Case ( nKey == K_F8 )
          If lRapor=.F.
-            nCho:=Alert("Seilenler iptal edilsin mi ?",{"Hayr","Evet"})
+            nCho:=_Alert("Seçilenler iptal edilsin mi ?",{"Hayır","Evet"})
             If nCho=2
                Select Fiylis
                Go Top
@@ -934,7 +936,7 @@ Do Case
             Endif
          Endif
     Case (nKey == K_F12 )
-         nCikis:=Alert("Rapor aygtn seiniz.",{"Ekran","Dosya","Yazc"})
+         nCikis:=_Alert("Rapor aygıtını seçiniz.",{"Ekran","Dosya","Yazıcı"})
          OldScr1:=SaveScreen(0,0,24,79)
          Select Fiylis
          If nCikis=1
@@ -943,7 +945,7 @@ Do Case
             lRapor=.T.
             ToplamRap("D","A")
          Elseif nCikis=3
-            nCho:=Alert("Yazcy hazrlayp ENTER tuuna basnz.",{"Tamam","Vazge"})
+            nCho:=_Alert("Yazıcıyı hazırlayıp ENTER tuşuna basınız.",{"Tamam","Vazgeç"})
             If nCho=1
                Dur=PRN_OFF()
                If Dur<>"Kapali"
@@ -967,7 +969,7 @@ Do Case
          MakinaGir()
 
 EndCase
-_TusYaz(24,1,{"~ENTER/TAB~-Seim","~F5~-Rapor","~F6~-Aktar","~F7~-Getir","~F8~-Sfrla","~ESC~-k"})
+_TusYaz(24,1,{"~ENTER/TAB~-Seçim","~F5~-Rapor","~F6~-Aktar","~F7~-Getir","~F8~-Sıfırla","~ESC~-Çıkış"})
 Return(lRet)
 //////////////////////////////////////////////////////////////////////////////
 Function TopFunc3()
@@ -1044,7 +1046,7 @@ Function ToplamRap(cAygit,cFiyat)
  SET RELATION TO MALNO INTO GRUP
  Locate for OKTOP='û'
   If !Found()
-     Alert("Kayt seimi yaplmam!")
+     _Alert("Kayıt seçimi yapılmamış!")
      Return
   Endif
   aAdd(aSatir,Padl(dTar,79))
@@ -1055,7 +1057,7 @@ Function ToplamRap(cAygit,cFiyat)
      aAdd(aSatir,Space(80))
   Endif
   aAdd(aSatir,Space(80))
-  aAdd(aSatir,Padc("Aklama",43)+" "+Padc("Mik",3)+" "+Padc("Fiyat",14)+" "+;
+  aAdd(aSatir,Padc("Açıklama",43)+" "+Padc("Mik",3)+" "+Padc("Fiyat",14)+" "+;
                 Padc("Tutar",14)+" "+Padc("  ",2))
   aAdd(aSatir,Repl("-",43)+" "+Repl("-",3)+" "+Repl("-",14)+" "+;
                 Repl("-",14)+" "+Repl("-",2))
@@ -1131,16 +1133,16 @@ Function ToplamRap(cAygit,cFiyat)
 
   cName:=""
   If cAygit="D"
-     cName := GetAlert("Dosya adn giriniz.",8,{"Tamam","Vazge"})
+     cName := GetAlert("Dosya adını giriniz.",8,{"Tamam","Vazgeç"})
      If Empty(cName)
         Return
      Else
-        cName :=Alltrim(cName)+".TXT"
+        cName :=Alltrim(cName)+".txt"
      Endif
   Endif
 
   If cAygit="E" .Or. Empty(cName)
-     cName:="Gecici.txt"
+     cName:="gecici.txt"
   Endif
 
   If cAygit="E" .Or. cAygit="D"
@@ -1189,7 +1191,7 @@ Function ToplamRap(cAygit,cFiyat)
      Endif
   Endif
   If RAPAYAR->KUR_DUR $ "û"
-     Kurlar:="Bugnk kurlar="
+     Kurlar:="Bugünkü kurlar="
      For J=1 To Len(aDolar)
          If aDolar[J,1]!="TL"
             Kurlar:=Kurlar+aDolar[J,1]+":"+;
@@ -1204,6 +1206,7 @@ Function ToplamRap(cAygit,cFiyat)
   Set Printer To
   If cAygit="E" .Or. cAygit="D"
 //     _TEXTVIEW(cName,0,0,24,79,1,7,0,"AABB",.T.,1,132,4096)
+    __run("less --tilde --shift=3 data/gecici.txt")
   Endif
 Return
 //////////////////////////////////////////////////////////////////////////////
@@ -1243,9 +1246,9 @@ Return
 //////////////////////////////////////////////////////////////////////////////
 Function GrpAktar()
    AktScr:=SaveScreen(5,27,20,53)
-   _TusYaz(24,1,{"~ENTER~-Seim","~ESC~-k"})
+   _TusYaz(24,1,{"~ENTER~-Seçim","~ESC~-Çıkış"})
    gAlan:={"AMAK_ADI","AMAK_DUR"}
-   gBasl:={"Grup Ad"," "}
+   gBasl:={"Grup Adı"," "}
    gPict:={"@K","@K"}
    MakKod=0
    Select MAKANA
@@ -1254,17 +1257,17 @@ Function GrpAktar()
    SetColor()
    If !Lastkey()=K_ESC
       If AMAK_KOD=1
-         Alert("Bu kayt zerine aktarma yaplamaz!")
+         _Alert("Bu kayıt üzerine aktarma yapılamaz!")
          nCho=2
       Else
          If AMAK_DUR="û"
-            cMsj:="`"+Alltrim(AMAK_ADI)+"'"+" gurubunda kayt var;"+;
-                  "iaretlenen kaytlar zerine aktarlsn m?"
+            cMsj:="`"+Alltrim(AMAK_ADI)+"'"+" gurubunda kayıt var;"+;
+                  "işaretlenen kayıtlar üzerine aktarılsın mı?"
          Else
-            cMsj:="aretlenen kaytlar "+"`"+Alltrim(AMAK_ADI)+"';"+;
-                   " gurubuna aktarlsn m?"
+            cMsj:="İşaretlenen kayıtlar "+"`"+Alltrim(AMAK_ADI)+"';"+;
+                   " gurubuna aktarılsın mı?"
          Endif
-         nCho:=Alert(cMsj,{"Evet","Hayr"})
+         nCho:=_Alert(cMsj,{"Evet","Hayır"})
          If nCho=1
             MakKod=AMAK_KOD
             Repl AMAK_DUR With "û"
@@ -1280,7 +1283,7 @@ Function GrpAktar()
  Locate All for OKTOP='û'
   If !Found()
      If nCho=1
-        Alert("Kayt seimi yaplmam!")
+        _Alert("Kayıt seçimi yapılmamış!")
      Endif
      Select Grup
      Return
@@ -1306,9 +1309,9 @@ Return
 //////////////////////////////////////////////////////////////////////////////
 Function GrpGetir()
    AktScr:=SaveScreen(5,27,20,53)
-   _TusYaz(24,1,{"~ENTER~-Seim","~ESC~-k"})
+   _TusYaz(24,1,{"~ENTER~-Seçim","~ESC~-Çıkış"})
    gAlan:={"AMAK_ADI","AMAK_DUR"}
-   gBasl:={"Grup Ad"," "}
+   gBasl:={"Grup Adı"," "}
    gPict:={"@K","@K"}
    MakKod=0
    Select MAKANA
@@ -1317,14 +1320,14 @@ Function GrpGetir()
    SetColor()
    If !Lastkey()=K_ESC
       If AMAK_DUR=" "
-         Alert("`"+Alltrim(AMAK_ADI)+"'"+" gurubunda;"+;
-               "kayt yok!",{"Tamam"})
+         _Alert("`"+Alltrim(AMAK_ADI)+"'"+" gurubunda;"+;
+               "kayıt yok!",{"Tamam"})
          RestScreen(5,27,20,53,AktScr)
          Select Grup
          Return
       Else
-         nCho:=Alert("`"+Alltrim(AMAK_ADI)+"'"+" gurubundaki;"+;
-                     "kaytlar aktarlsn m?",{"Evet","Hayr"})
+         nCho:=_Alert("`"+Alltrim(AMAK_ADI)+"'"+" gurubundaki;"+;
+                     "kayıtlar aktarılsın mı?",{"Evet","Hayır"})
          If nCho=1
             MakKod=AMAK_KOD
          Endif
@@ -1339,7 +1342,7 @@ Function GrpGetir()
  Locate All for MAK_KOD=MakKod
   If !Found()
      If nCho=1
-        Alert("Koula uygun kayt bulunamad!")
+        _Alert("Koşula uygun kayıt bulunamadı!")
      Endif
      Select Grup
      Return
@@ -1414,8 +1417,8 @@ If !Found()
        Repl PH_KUR With 1
    Next
 Endif
-_TusYaz(24,1,{"~ENTER~-De§itir","~F4~-Para Birimi","~F5~-Rapor","~ESC~-k"})
-@ 6,29 Say "Bugnk Kuru Giriniz!" Color "15/2"
+_TusYaz(24,1,{"~ENTER~-Değiştir","~F4~-Para Birimi","~F5~-Rapor","~ESC~-Çıkış"})
+@ 6,29 Say _TR("Bugünkü Kuru Giriniz!") Color "15/2"
 Alan:={"PH_BIR","PH_KUR"}
 Picture:={"@K","999,999.99"}
 Baslik:={"Para Birimi","Kur"}
@@ -1440,6 +1443,7 @@ Do Case
         oCol := oB:getColumn(2)
 
 //        If Eval(oCol:block)<2
+
 //           Keyboard Chr(13)
 //        Else
 //           TBosalt()
@@ -1482,21 +1486,21 @@ dSonTar:=CTod("")
 _Win(11,27,14,51,"15/13",1,1)
 SETCURSOR(1)
 SetColor("15/13,15/1,,,15/13")
-@ 12,29 Say "lk Tarih  :" Get dIlkTar Pict "99/99/99"
-@ 13,29 Say "Son Tarih  :" Get dSonTar Pict "99/99/99"
+@ 12,29 Say _TR("İlk Tarih  :") Get dIlkTar Pict "99/99/99"
+@ 13,29 Say _TR("Son Tarih  :") Get dSonTar Pict "99/99/99"
 Read
 SETCURSOR(0)
 If Lastkey()=K_ESC
    Return(0)
 Endif
 
-nCikis:=Alert("Rapor aygtn seiniz.",{"Ekran","Dosya","Yazc"})
+nCikis:=_Alert("Rapor aygıtını seçiniz.",{"Ekran","Dosya","Yazıcı"})
 If nCikis=1
    cAygit:="E"
 Elseif nCikis=2
    cAygit:="D"
 Elseif nCikis=3
-   nCho:=Alert("Yazcy hazrlayp ENTER tuuna basnz.",{"Tamam","Vazge"})
+   nCho:=_Alert("Yazıcıyı hazırlayıp ENTER tuşuna basınız.",{"Tamam","Vazgeç"})
    If nCho=1
       Dur=PRN_OFF()
       If Dur<>"Kapali"
@@ -1509,16 +1513,16 @@ Endif
 
  cName:=""
  If cAygit="D"
-    cName := GetAlert("Dosya adn giriniz.",8,{"Tamam","Vazge"})
+    cName := GetAlert("Dosya adını giriniz.",8,{"Tamam","Vazgeç"})
     If Empty(cName)
        Return
     Else
-       cName :=Alltrim(cName)+".TXT"
+       cName :=Alltrim(cName)+".txt"
     Endif
  Endif
 
  If cAygit="E" .Or. Empty(cName)
-    cName:="Gecici.txt"
+    cName:="gecici.txt"
  Endif
 
  If cAygit="E" .Or. cAygit="D"
@@ -1569,18 +1573,19 @@ DbSeek(dIlkTar,.T.)
  Set Printer To
  If cAygit="E" .Or. cAygit="D"
 //    _TEXTVIEW(cName,0,0,24,79,1,7,0,"AABB",.T.,1,132,4096)
+    __run("less --tilde --shift=3 data/gecici.txt")
  Endif
 Return
 //////////////////////////////////////////////////////////////////////////////
 Function ParaGir()
 Select Para
 ParScr:=SaveScreen(0,0,24,79)
-_TusYaz(24,1,{"~CTRL+INS~-Ekle","~CTRL+ENTER~-De§itir",;
-              "~CTRL+DEL~-Sil","~ESC~-k"})
+_TusYaz(24,1,{"~F2~-Ekle","~F3~-Sil",;
+              "~F4~-Değiştir","~ESC~-Çıkış"})
 
 @ 6,29 Say " Takip Edilen Kurlar " Color "15/2"
 gAlan:={"P_BIR","P_ACK"}
-gBasl:={"Bir","Aklama"}
+gBasl:={"Br.","Açıklama"}
 gPict:={"@K","@K"}
 SetColor("15/5")
 MyBrowse(7,26,16,52,gAlan,gBasl,gPict,"ParaFunc","P_BIR","",,.T.,.T.,0,2,.T.)
@@ -1594,9 +1599,9 @@ Local lRet:=.T.
 Do Case
    Case nKey=K_ESC
         lRet=.F.
-   Case nKey=K_CTRL_ENTER
+   Case nKey=K_F4
          If XKey=.F.
-            nCho:=Alert("Kayt de§itirilsin mi?",{"Hayr","Evet"})
+            nCho:=_Alert("Kayıt değiştirilsin mi?",{"Hayır","Evet"})
          Else
             nCho=2
          Endif
@@ -1631,8 +1636,8 @@ Do Case
             sFound=.T.
          Endif
          lRet=.T.
-   Case nKey=K_CTRL_INS
-         nCho:=Alert("Yeni kayt eklensin mi?",{"Hayr","Evet"})
+   Case nKey=K_F2
+         nCho:=_Alert("Yeni kayıt eklensin mi?",{"Hayır","Evet"})
          If nCho=2
             Append Blank
             Replace P_BIR With "ÿ"
@@ -1642,8 +1647,8 @@ Do Case
             sFound=.T.
          Endif
          lRet=.T.
-   Case nKey=K_CTRL_DEL
-         nCho:=Alert("Kayt silinsin mi?",{"Hayr","Evet"})
+   Case nKey=K_F3
+         nCho:=_Alert("Kayıt silinsin mi?",{"Hayır","Evet"})
          cOldBir=P_BIR
          If nCho=2 .And. cOldBir!="TL"
             Delete
@@ -1666,7 +1671,7 @@ Return(lRet)
 Function KurSec()
    KurScr:=SaveScreen(7,33,18,46)
    KurTus:=SaveScreen(24,0,24,79)
-   _TusYaz(24,1,{"~ENTER~-Seim","~ESC~-k"})
+   _TusYaz(24,1,{"~ENTER~-Seçim","~ESC~-Çıkış"})
    gAlan:={"P_ACK"}
    gBasl:={"Para Birimi"}
    gPict:={"@K"}
@@ -1685,7 +1690,7 @@ Return
 Function FirmaSec()
    FirScr:=SaveScreen(7,33,18,46)
    FirTus:=SaveScreen(24,0,24,79)
-   _TusYaz(24,1,{"~ENTER~-Seim","~ESC~-k"})
+   _TusYaz(24,1,{"~ENTER~-Seçim","~ESC~-Çıkış"})
    gAlan:={"FIR_ADI"}
    gBasl:={"Firma Ad"}
    gPict:={"@K"}
@@ -1704,10 +1709,10 @@ Return
 Function FirmaGir()
 Select Firma
 FirScr:=SaveScreen(0,0,24,79)
-_TusYaz(24,1,{"~CTRL+INS~-Ekle","~CTRL+ENTER~-De§itir",;
-              "~CTRL+DEL~-Sil","~F5~-Rapor","~ESC~-k"})
+_TusYaz(24,1,{"~ENTER~-Seçim","~F2~-Ekle","~F3~-Sil",;
+              "~F4~-Değiştir","~F5~-Rapor","~ESC~-Çık"})
 gAlan:={"FIR_KOD","FIR_ADI"}
-gBasl:={"Kod","Aklama"}
+gBasl:={"Kod","Açıklama"}
 gPict:={"@K","@K"}
 SetColor("15/5")
 MyBrowse(7,19,16,59,gAlan,gBasl,gPict,"FirFunc","FIR_KOD","",,.T.,.T.,0,2,.T.)
@@ -1721,9 +1726,9 @@ Local lRet:=.T.
 Do Case
    Case nKey=K_ESC
         lRet=.F.
-   Case nKey=K_CTRL_ENTER
+   Case nKey=K_F4
         If XKey=.F.
-           nCho:=Alert("Kayt de§itirilsin mi?",{"Hayr","Evet"})
+           nCho:=_Alert("Kayıt değiştirilsin mi?",{"Hayır","Evet"})
         Else
            nCho=2
         Endif
@@ -1754,8 +1759,8 @@ Do Case
            sFound=.T.
         Endif
         lRet=.T.
-   Case nKey=K_CTRL_INS
-         nCho:=Alert("Yeni kayt eklensin mi?",{"Hayr","Evet"})
+   Case nKey=K_F2
+         nCho:=_Alert("Yeni kayıt eklensin mi?",{"Hayır","Evet"})
          If nCho=2
             Append Blank
             Replace FIR_KOD With "ÿ"
@@ -1765,8 +1770,8 @@ Do Case
             sFound=.T.
          Endif
          lRet=.T.
-   Case nKey=K_CTRL_DEL
-         nCho:=Alert("Kayt silinsin mi?",{"Hayr","Evet"})
+   Case nKey=K_F3
+         nCho:=_Alert("Kayıt silinsin mi?",{"Hayır","Evet"})
          If nCho=2
             cOldFir=FIR_KOD
             Delete
@@ -1791,12 +1796,12 @@ Endcase
 Return(lRet)
 //////////////////////////////////////////////////////////////////////////////
 Function FirmaRap()
- nCikis:=Alert("Rapor aygtn seiniz.",{"Ekran","Dosya","Yazc"})
+ nCikis:=_Alert("Rapor aygıtını seçiniz.",{"Ekran","Dosya","Yazıcı"})
  If nCikis=0
     Return
  Endif
  If nCikis=3
-    nCho:=Alert("Yazcy hazrlayp ENTER tuuna basnz.",{"Tamam","Vazge"})
+    nCho:=_Alert("Yazıcıyı hazırlayıp ENTER tuşuna basınız.",{"Tamam","Vazgeç"})
     If nCho=1
        Dur=PRN_OFF()
        If Dur="Kapali"
@@ -1810,13 +1815,13 @@ Function FirmaRap()
  Select Fiylis
  Locate for FIRMA=cFirmaKod
   If !Found()
-     Alert("Koula uygun kayt bulunamad!")
+     _Alert("Koşula uygun kayıt bulunamadı!")
      Return
   Endif
   aAdd(aSatir,Padc(Alltrim(cFirmaAdi)+" - Fiyat Listesi",79))
   aAdd(aSatir,"")
-  aAdd(aSatir,Padc("Aklama",41)+" "+Padc("Al Fiyat",14)+" "+;
-               Padc("  ",2)+" "+Padc("Sat Fiyat",14)+" "+Padc("  ",2))
+  aAdd(aSatir,Padc("Açıklama",41)+" "+Padc("Alış Fiyatı",14)+" "+;
+               Padc("  ",2)+" "+Padc("Satış Fiyatı",14)+" "+Padc("  ",2))
   aAdd(aSatir,Repl("-",41)+" "+Repl("-",14)+" "+;
                Repl("-",2)+" "+Repl("-",14)+" "+Repl("-",2))
   S=3
@@ -1830,16 +1835,16 @@ Function FirmaRap()
                  Repl("-",2)+" "+Repl("-",14)+" "+Repl("-",2))
   cName:=""
   If nCikis=2
-     cName := GetAlert("Dosya adn giriniz.",8,{"Tamam","Vazge"})
+     cName := GetAlert("Dosya adını giriniz.",8,{"Tamam","Vazgeç"})
      If Empty(cName)
         Return
      Else
-        cName :=Alltrim(cName)+".TXT"
+        cName :=Alltrim(cName)+".txt"
      Endif
   Endif
 
   If nCikis=1 .Or. Empty(cName)
-     cName:="Gecici.txt"
+     cName:="gecici.txt"
   Endif
 
   If nCikis=1 .Or. nCikis=2
@@ -1858,6 +1863,7 @@ Function FirmaRap()
   If nCikis=1 .Or. nCikis=2
   SetCursor(0)
 //     _TEXTVIEW(cName,0,0,24,79,1,7,0,"AABB",.T.,1,132,4096)
+  __run("less --tilde --shift=3 data/gecici.txt")
   Endif
 Return
 //////////////////////////////////////////////////////////////////////////////
@@ -1870,10 +1876,10 @@ OldMakSel=Select()
 OldColor:=SetColor()
 MakScr:=SaveScreen(0,0,24,79)
 Select MAKANA
-_TusYaz(24,1,{"~CTRL+INS~-Ekle","~CTRL+ENTER~-De§itir",;
-              "~CTRL+DEL~-Sil","~ESC~-k"})
+_TusYaz(24,1,{"~ENTER~-Seçim","~F2~-Ekle","~F3~-Sil",;
+              "~F4~-Değiştir","~ESC~-Çık"})
 gAlan:={"AMAK_ADI"}
-gBasl:={"Grup Ad"}
+gBasl:={"Grup Adı"}
 gPict:={"@K"}
 SetColor("15/5")
 MyBrowse(5,29,19,50,gAlan,gBasl,gPict,"MakFunc","AMAK_KOD",1,99,.T.,.T.,0,0,.T.)
@@ -1893,12 +1899,12 @@ Local lRet:=.T.
 Do Case
     Case ( nKey == K_ESC )
          lRet=.F.
-    Case ( nKey == K_CTRL_ENTER )
+    Case ( nKey == K_F4 )
          If AMAK_KOD=1
-            Alert("Bu kayt zerinde de§iiklik yaplamaz!")
+            _Alert("Bu kayıt üzerinde değişiklik yapılamaz!")
          Else
             If XKey=.F.
-               nCho:=Alert("Kayt de§itirilsin mi?",{"Hayr","Evet"})
+               nCho:=_Alert("Kayıt değiştirilsin mi?",{"Hayır","Evet"})
             Else
                nCho=2
             Endif
@@ -1907,8 +1913,8 @@ Do Case
                XKey=.F.
             Endif
          Endif
-    Case ( nKey == K_CTRL_INS )
-         nCho:=Alert("Yeni kayt eklensin mi?",{"Hayr","Evet"})
+    Case ( nKey == K_F2 )
+         nCho:=_Alert("Yeni kayıt eklensin mi?",{"Hayır","Evet"})
          If nCho=2
             nKay=1
             Do While .T.
@@ -1930,11 +1936,11 @@ Do Case
                Endif
             Enddo
         Endif
-    Case ( nKey == K_CTRL_DEL )
+    Case ( nKey == K_F3 )
         If AMAK_KOD=1
-           Alert("Bu kayt silinemez!")
+           _Alert("Bu kayıt silinemez!")
         Else
-           nCho:=Alert("Kayt silinsin mi?",{"Hayr","Evet"})
+           nCho:=_Alert("Kayıt silinsin mi?",{"Hayır","Evet"})
            If nCho=2
               dKay=AMAK_KOD
               Delete
@@ -1967,7 +1973,7 @@ Set Key K_F10 To GetSec()
 Sele RapAyar
 AyarScr:=SaveScreen(1,0,23,79)
 AyarTus:=SaveScreen(24,0,24,79)
-_TusYaz(24,1,{"~SPACE~-aretle","~F10~-Seim","~ESC~-k"})
+_TusYaz(24,1,{"~SPACE~-İşaretle","~F10~-Seçim","~ESC~-Çıkış"})
 _Win(1,1,8,78,"7/6",1,1)
 Keyboard Chr(27)
 SetColor("7/6,16/6,,,7/6")
@@ -1985,8 +1991,8 @@ SetColor("15/5,14/5,,,15/5")
    @ 10,25 Say "K.D.V.          :" Get KDV_DUR Pict"9~û~ "
    @ 11,25 Say "G.Toplam        :" Get GTP_DUR Pict"9~û~ "
    @ 11,48 Say "Kur: "+CEV_KUR Color("15/6")
-   @ 12,25 Say "Gnn Kurlar   :" Get KUR_DUR Pict"9~û~ "
-   @ 13,25 Say "Balk          :" Get BAS_DUR Pict"9~û~ "
+   @ 12,25 Say "Günün Kurları   :" Get KUR_DUR Pict"9~û~ "
+   @ 13,25 Say "Başlık          :" Get BAS_DUR Pict"9~û~ "
    @ 14,25 Say "Dip not         :" Get NOT_DUR Pict"9~û~ "
    Read
    If Lastkey()=27
@@ -2027,7 +2033,7 @@ If cGelGet="GTP_DUR"
 Endif
 If cGelGet="BAS_DUR"
    If BAS_DUR $ "û"
-      _TusYaz(24,1,{"~F2~-Kayt","~ESC~-k"})
+      _TusYaz(24,1,{"~F2~-Kayıt","~ESC~-Çıkış"})
       _Win(1,1,8,78,"14/6",1,0)
       SetColor("15/6,14/6,,,15/6")
       Replace BAS_NOT With MEMOEDIT(BAS_NOT,2,2,7,77,.T.,"MemUdf",80)
@@ -2041,7 +2047,7 @@ If cGelGet="BAS_DUR"
 Endif
 If cGelGet="NOT_DUR"
    If NOT_DUR $ "û"
-      _TusYaz(24,1,{"~SPACE~-aretle","~ESC~-k"})
+      _TusYaz(24,1,{"~SPACE~-İşaretle","~ESC~-Çıkış"})
       _Win(16,1,22,78,"14/6",1,0)
       @ 17,2 Say "[" + NT1_DUR + "] " + Left(DIP_NT1,70) Color("7/6")
       @ 18,2 Say "[" + NT2_DUR + "] " + Left(DIP_NT2,70) Color("7/6")
@@ -2073,7 +2079,7 @@ If cGelGet="NOT_DUR"
       _Box(16,1,22,78,"7/6",1,0)
    Endif
 Endif
-_TusYaz(24,1,{"~SPACE~-aretle","~F10~-Seim","~ESC~-k"})
+_TusYaz(24,1,{"~SPACE~-İşaretle","~F10~-Seçim","~ESC~-Çıkış"})
 TBosalt()
 Set Key K_F10 To GetSec()
 Return
@@ -2109,7 +2115,7 @@ Do Case
         lTus=.F.
    Case Lastkey()=K_ESC
         If lTus=.T.
-           nCho:=Alert("Kaydetmeden klsn m?",{"Hayr","Evet"})
+           nCho:=_Alert("Kaydetmeden Çıkılsın mı?",{"Hayır","Evet"})
            If nCho=2
               Return
            Else
@@ -2137,7 +2143,7 @@ If RAPAYAR->SIF_DR2="û"
 Endif
 KSETCAPS(.T.)
 KasaScr:=SaveScreen(0,0,24,79)
-_TusYaz(24,0,{"~F2~-Ekle","~F3~-Sil","~F5~-Rapor","~ALT+H~-Hesaplar","~ALT+T~-Tarih","~ESC~-k"})
+_TusYaz(24,0,{"~F2~-Ekle","~F3~-Sil","~F5~-Rapor","~ALT+H~-Hesaplar","~ALT+T~-Tarih","~ESC~-Çıkış"})
 Select KASAKART
 HrkTarih:=Date()
 lTarihmi:=.F.
@@ -2191,7 +2197,7 @@ Function KasaGir()
 KSETCAPS(.T.)
 Select KASAHRK
 Alan:={"TARIH","KOD","ACIKLAMA","GIRMIKTAR","CIKMIKTAR"}
-Basl:={"Tarih","Hesap Kodu","Aklama","Giri","k"}
+Basl:={"Tarih","Hesap Kodu","Açıklama","Giriş","Çık"}
 Pict:={"99/99/99","@!","@!S28","999,999,999.99","999,999,999.99"}
 KasaMenu()
 nGirMik:=KASAKART->GGIRMIKTAR
@@ -2231,7 +2237,7 @@ Do Case
            Doget(oB,lAppend)
         Endif
         If oB:Colpos=3
-           If KASAHSP->HESYON=""
+           If KASAHSP->HESYON="C"
               KEYBOARD CHR(K_RIGHT)+CHR(K_RIGHT)+CHR(K_RETURN)
            Else
               KEYBOARD CHR(K_RIGHT)+CHR(K_RETURN)
@@ -2262,7 +2268,7 @@ Do Case
       Endif
      #Endif
   case ( nKey == K_F3 )
-    nSec:=Alert("Kayt silinsin mi?",{"Hayr","Evet"})
+    nSec:=_Alert("Kayıt silinsin mi?",{"Hayır","Evet"})
     If nSec=2
        If Left(KOD,1)!="#"
           nGirMik=nGirMik-GIRMIKTAR
@@ -2383,7 +2389,7 @@ Return
 Function HesapSec()
 KSETCAPS(.T.)
    HesapScr:=SaveScreen(0,0,24,79)
-   _TusYaz(24,0,{"~ENTER~-Seim","~ESC~-Hepsi"})
+   _TusYaz(24,0,{"~ENTER~-Seçim","~ESC~-Hepsi"})
    gAlan:={"KOD"}
    gBasl:={"Hesap Kodu"}
    gPict:={"@!"}
@@ -2415,14 +2421,15 @@ KSETCAPS(.T.)
 Select KASAHSP
 HesScr:=SaveScreen(6,21,17,68)
 gAlan:={"KOD","ACIKLAMA","HESYON"}
-gBasl:={"Hesap Kodu","Aklama","Yn"}
+gBasl:={"Hesap Kodu","Açıklama","Yön"}
 gPict:={"@!","@!","@!"}
-_TusYaz(24,0,{"~CTRL+INS~-Ekle","~CTRL+ENTER~-De§itir","~CTRL+DEL~-Sil","~ESC~-k"})
+_TusYaz(24,1,{"~ENTER~-Seçim","~F2~-Ekle","~F3~-Sil",;
+              "~F4~-Değiştir","~ESC~-Çık"})
 SetColor("15/13,15/1,,,15/13")
 MyBrowse(6,21,16,67,gAlan,gBasl,gPict,"HesFunc1","KOD","",,.T.,.F.,0,3,.T.)
 SetColor()
 RestScreen(6,21,17,68,HesScr)
-_TusYaz(24,0,{"~F2~-Ekle","~F3~-Sil","~F5~-Rapor","~ALT+H~-Hesaplar","~ALT+T~-Tarih","~ESC~-k"})
+_TusYaz(24,0,{"~F2~-Ekle","~F3~-Sil","~F5~-Rapor","~ALT+H~-Hesaplar","~ALT+T~-Tarih","~ESC~-Çıkış"})
 Select KASAHRK
 Return
 //////////////////////////////////////////////////////////////////////////////
@@ -2432,9 +2439,9 @@ Local lRet:=.T.
 Do Case
    Case nKey=K_ESC
         lRet=.F.
-   Case nKey=K_CTRL_ENTER
+   Case nKey=K_F4
          If XKey=.F.
-            nCho:=Alert("Kayt de§itirilsin mi?",{"Hayr","Evet"})
+            nCho:=_Alert("Kayıt değiştirilsin mi?",{"Hayır","Evet"})
          Else
             nCho=2
          Endif
@@ -2461,8 +2468,8 @@ Do Case
             sFound=.T.
          Endif
          lRet=.T.
-   Case nKey=K_CTRL_INS
-         nCho:=Alert("Yeni kayt eklensin mi?",{"Hayr","Evet"})
+   Case nKey=K_F2
+         nCho:=_Alert("Yeni kayıt eklensin mi?",{"Hayır","Evet"})
          If nCho=2
             Append Blank
             Replace KOD With "ÿ"
@@ -2472,14 +2479,14 @@ Do Case
             sFound=.T.
          Endif
          lRet=.T.
-   Case nKey=K_CTRL_DEL
-        nCho:=Alert("Kayt silinsin mi?",{"Hayr","Evet"})
+   Case nKey=K_F3
+        nCho:=_Alert("Kayıt silinsin mi?",{"Hayır","Evet"})
         If nCho=2
            cOldHes:=KOD
            Select KASAHRK
            Locate For KOD=cOldHes
            If Found()
-              Alert("Bu kayt silinemez!",{"Tamam"})
+              _Alert("Bu kayıt silinemez!",{"Tamam"})
               Select KASAHSP
            Else
               Select KASAHSP
@@ -2497,7 +2504,7 @@ OldScr:=SaveScreen(0,0,24,79)
 _Win(10,26,14,49,"15/13",1,1)
 SETCURSOR(1)
 SetColor("15/13,15/1,,,15/13")
-@ 11,27 Say "lk Tarih  :" Get OdeIlk Pict "99/99/99"
+@ 11,27 Say "İlk Tarih  :" Get OdeIlk Pict "99/99/99"
 @ 12,27 Say "Son Tarih  :" Get OdeSon Pict "99/99/99"
 @ 13,27 Say "Hesap Kodu :"
 Read
@@ -2528,9 +2535,9 @@ Else
    Kosul:=Kosul+" .And. TARIH<=OdeSon"
 Endif
 Alanlar:={"Dtoc(TARIH)","KOD","ACIKLAMA","TransForm(GIRMIKTAR,'999,999,999.99')","TransForm(CIKMIKTAR,'999,999,999.99')"}
-Baslik:={"Tarih","Hesap Kodu","Aklama","Giri","k"}
+Baslik:={"Tarih","Hesap Kodu","Açıklama","Giriş","Çık"}
 Toplam:={"GIRMIKTAR","CIKMIKTAR"}
-nAygit:=Alert("Rapor aygtn seiniz.",{"Ekran","Yazc"})
+nAygit:=_Alert("Rapor aygıtını seçiniz.",{"Ekran","Yazıcı"})
 If nAygit=1
    Bekle()
    _List("KASAHRK",Kosul,Alanlar,Baslik,Toplam,"E")
