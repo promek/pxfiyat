@@ -464,7 +464,7 @@ nGirSay:=0
 nReturn:=0
 Do While .T.
    SetColor("1/7")
-   @ 12,33 Say "ifre : " Color("1/7")
+   @ 12,33 Say "Şifre : " Color("1/7")
    SetColor("1/7")
    @ 12,41 Get cSifre Color("7/7") Pict"@K"
    Read
@@ -479,7 +479,7 @@ Do While .T.
       Tone(600,3)
       nGirSay+=1
       If nGirSay=3
-         Alert("Yanl ifre!",{"Tamam"})
+         _Alert("Yanlış Şifre!",{"Tamam"})
          Exit
       Endif
    Endif
@@ -488,7 +488,7 @@ RestScreen(0,0,24,79,cSifScr)
 Return(nReturn)
 //////////////////////////////////////////////////////////////////////////////
 Function GenelParam()
-If RAPAYAR->SIF_DR2="û"
+If RAPAYAR->SIF_DR2="x"
    nGirisDur:=Sifre()
    If nGirisDur!=2
       Return
@@ -505,7 +505,7 @@ cSifreG2:=Space(5)
 cSifreO1:=Space(5)
 cSifreO2:=Space(5)
 Select RAPAYAR
-_Win( 5, 0,18,79,"15/6",1,1)
+_Win( 5, 0,19,79,"15/6",1,1)
 SetColor("15/6,15/1,,,15/6")
 @  5,29 Say "Firma Parametreleri"
 @  7,01 Say _TR("Firma Adı : ") Get FIR_ADI Pict"@!"
@@ -535,12 +535,12 @@ Read
 //   Replace SCR_DUR With ""
 //Endif
 cSifDur:=SIF_DR1
-@ 16,01 Say "[ ] Girişte Şifre"
+@ 16,01 Say _TR("[ ] Girişte Şifre")
 @ 16,02 Get SIF_DR1 Pict"9~x~ "
 Read
 If cSifDur=" " .And. SIF_DR1="x"
    Do While .T.
-      @ 16,25 Say "Şifre Giriniz  : "
+      @ 16,25 Say _TR("Şifre Giriniz  : ")
       @ 16,42 Get cSifreG1 Color("1/1") Pict"@K"
       Read
 //      cSifreG1:=GETINPUT(cSifreG1)
@@ -548,19 +548,19 @@ If cSifDur=" " .And. SIF_DR1="x"
          Replace SIF_DR1 With ""
          Exit
       Endif
-      @ 16,55 Say "Tekrar Giriniz : "
+      @ 16,55 Say _TR("Tekrar Giriniz : ")
       @ 16,72 Get cSifreG2 Color("1/1") Pict"@K"
       Read
 //      cSifreG2:=GETINPUT(cSifreG2)
       If cSifreG1=cSifreG2
          Replace SIF_RE1 With Crypt(cSifreG1,"IBOSEN")
          If cSifreG1=Crypt(SIF_RE2,"IBOSEN")
-            Alert("Giriş Şifresi, güvenlik şifresiyle aynı olmamalı",{"Tamam"})
+            _Alert("Giriş Şifresi, güvenlik şifresiyle aynı olmamalı",{"Tamam"})
             Loop
          Endif
          Exit
       Else
-         Alert("Hatalı giriş!",{"Tamam"})
+         _Alert("Hatalı giriş!",{"Tamam"})
          Loop
       Endif
    Enddo
@@ -568,12 +568,12 @@ Elseif cSifDur="x" .And. SIF_DR1=" "
    Replace SIF_RE1 With ""
 Endif
 cSifDur:=SIF_DR2
-@ 17,01 Say "[ ] Güvenlik Şifre"
+@ 17,01 Say _TR("[ ] Güvenlik Şifre")
 @ 17,02 Get SIF_DR2 Pict"9~x~ "
 Read
 If cSifDur=" " .And. SIF_DR2="x"
    Do While .T.
-      @ 17,25 Say "Şifre Giriniz  : "
+      @ 17,25 Say _TR("Şifre Giriniz  : ")
       @ 17,42 Get cSifreO1 Color("1/1") Pict"@K"
       Read
 //      cSifreO1:=GETINPUT(cSifreO1)
@@ -581,19 +581,19 @@ If cSifDur=" " .And. SIF_DR2="x"
          Replace SIF_DR2 With ""
          Exit
       Endif
-      @ 17,55 Say "Tekrar Giriniz : "
+      @ 17,55 Say _TR("Tekrar Giriniz : ")
       @ 17,72 Get cSifreO2 Color("1/1") Pict"@K"
       Read
 //      cSifreO2:=GETINPUT(cSifreO2)
       If cSifreO1=cSifreO2
          Replace SIF_RE2 With Crypt(cSifreO1,"IBOSEN")
          If cSifreO1=Crypt(SIF_RE1,"IBOSEN")
-            Alert("Güvenlik Şifresi, giriş şifresiyle aynı olmamalı!",{"Tamam"})
+            _Alert("Güvenlik Şifresi, giriş şifresiyle aynı olmamalı!",{"Tamam"})
             Loop
          Endif
          Exit
       Else
-         Alert("Hatalı giriş!",{"Tamam"})
+         _Alert("Hatalı giriş!",{"Tamam"})
          Loop
       Endif
    Enddo
