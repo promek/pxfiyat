@@ -508,39 +508,39 @@ Select RAPAYAR
 _Win( 5, 0,18,79,"15/6",1,1)
 SetColor("15/6,15/1,,,15/6")
 @  5,29 Say "Firma Parametreleri"
-@  7,01 Say "Firma Ad : " Get FIR_ADI Pict"@!"
+@  7,01 Say _TR("Firma Adı : ") Get FIR_ADI Pict"@!"
 @  8,01 Say "Yetkilisi : " Get FIR_YET Pict"@!"
 @  9,01 Say "Adres1    : " Get FIR_ADR1 Pict"@!"
 @ 10,01 Say "Adres2    : " Get FIR_ADR2 Pict"@!"
-@ 11,01 Say "l/le   : " Get FIR_ILI Pict"@!"
+@ 11,01 Say _TR("İl/İlçe   : ") Get FIR_ILI Pict"@!"
 @ 11,30 Say "Telefon : " Get FIR_TEL Pict"@!"
 @ 11,57 Say "Fax : " Get FIR_FAX Pict"@!"
-@ 13,00 Say "Ã"+Replicate("Ä",78)+"Ž"
+@ 13,00 Say chr(195)+Replicate(chr(196),78)+chr(180)
 @ 13,28 Say "Program Parametreleri"
-@ 14,01 Say "Liste Bal§ :" Get LIS_BAS Pict"@S61"
-@ 15,01 Say "[ ] Ekran Koruyucu Aktif"
-@ 15,02 Get SCR_DUR Pict"9~û~ "
-@ 15,31 Say "Sresi : " Get SCR_SUR Pict"@!" WHEN(SCR_DUR="û")
-//@ 15,52 Say "[ ] Ondalk"
+@ 15,01 Say _TR("Liste Başlığı :") Get LIS_BAS Pict"@S61"
+//@ 15,01 Say "[ ] Ekran Koruyucu Aktif"
+//@ 15,02 Get SCR_DUR Pict"9~û~ "
+//@ 15,31 Say _TR("Süresi : ") Get SCR_SUR Pict"@!" WHEN(SCR_DUR="û")
+//@ 15,52 Say "[ ] Ondalık"
 //@ 15,53 Get OND_DUR Pict"9~û~ "
-@ 16,01 Say "[ ] Girite ifre"
-@ 16,02 Say SIF_DR1 Pict"9~û~ "
-@ 17,01 Say "[ ] Gvenlik ifre"
-@ 17,02 Say SIF_DR2 Pict"9~û~ "
+@ 16,01 Say _TR("[ ] Girişte Şifre")
+@ 16,02 Say SIF_DR1 Pict"9~x~ "
+@ 17,01 Say _TR("[ ] Güvenlik Şifre")
+@ 17,02 Say SIF_DR2 Pict"9~x~ "
 Read
-If SCR_DUR!="û"
-   Replace SCR_SUR With 0
-Endif
-If SCR_SUR=0
-   Replace SCR_DUR With ""
-Endif
+//If SCR_DUR!="û"
+//   Replace SCR_SUR With 0
+//Endif
+//If SCR_SUR=0
+//   Replace SCR_DUR With ""
+//Endif
 cSifDur:=SIF_DR1
-@ 16,01 Say "[ ] Girite ifre"
-@ 16,02 Get SIF_DR1 Pict"9~û~ "
+@ 16,01 Say "[ ] Girişte Şifre"
+@ 16,02 Get SIF_DR1 Pict"9~x~ "
 Read
-If cSifDur=" " .And. SIF_DR1="û"
+If cSifDur=" " .And. SIF_DR1="x"
    Do While .T.
-      @ 16,25 Say "ifre Giriniz  : "
+      @ 16,25 Say "Şifre Giriniz  : "
       @ 16,42 Get cSifreG1 Color("1/1") Pict"@K"
       Read
 //      cSifreG1:=GETINPUT(cSifreG1)
@@ -555,25 +555,25 @@ If cSifDur=" " .And. SIF_DR1="û"
       If cSifreG1=cSifreG2
          Replace SIF_RE1 With Crypt(cSifreG1,"IBOSEN")
          If cSifreG1=Crypt(SIF_RE2,"IBOSEN")
-            Alert("Giri ifresi, gvenlik ifresiyle ayn olmamal",{"Tamam"})
+            Alert("Giriş Şifresi, güvenlik şifresiyle aynı olmamalı",{"Tamam"})
             Loop
          Endif
          Exit
       Else
-         Alert("Hatal giri!",{"Tamam"})
+         Alert("Hatalı giriş!",{"Tamam"})
          Loop
       Endif
    Enddo
-Elseif cSifDur="û" .And. SIF_DR1=" "
+Elseif cSifDur="x" .And. SIF_DR1=" "
    Replace SIF_RE1 With ""
 Endif
 cSifDur:=SIF_DR2
-@ 17,01 Say "[ ] Gvenlik ifre"
-@ 17,02 Get SIF_DR2 Pict"9~û~ "
+@ 17,01 Say "[ ] Güvenlik Şifre"
+@ 17,02 Get SIF_DR2 Pict"9~x~ "
 Read
-If cSifDur=" " .And. SIF_DR2="û"
+If cSifDur=" " .And. SIF_DR2="x"
    Do While .T.
-      @ 17,25 Say "ifre Giriniz  : "
+      @ 17,25 Say "Şifre Giriniz  : "
       @ 17,42 Get cSifreO1 Color("1/1") Pict"@K"
       Read
 //      cSifreO1:=GETINPUT(cSifreO1)
@@ -588,25 +588,24 @@ If cSifDur=" " .And. SIF_DR2="û"
       If cSifreO1=cSifreO2
          Replace SIF_RE2 With Crypt(cSifreO1,"IBOSEN")
          If cSifreO1=Crypt(SIF_RE1,"IBOSEN")
-            Alert("Gvenlik ifresi, giri ifresiyle ayn olmamal!",{"Tamam"})
+            Alert("Güvenlik Şifresi, giriş şifresiyle aynı olmamalı!",{"Tamam"})
             Loop
          Endif
          Exit
       Else
-         Alert("Hatal giri!",{"Tamam"})
+         Alert("Hatalı giriş!",{"Tamam"})
          Loop
       Endif
    Enddo
-Elseif cSifDur="û" .And. SIF_DR2=" "
+Elseif cSifDur="x" .And. SIF_DR2=" "
    Replace SIF_RE2 With ""
 Endif
-If RAPAYAR->SCR_SUR>0
-   Oldtime=Seconds()
-   Kes_sure=RAPAYAR->SCR_SUR
-   Set key 273 to int_altw
-//   Trapanykey("int_tus")
-   Keysec(273,1,-1)
-Endif
+//If RAPAYAR->SCR_SUR>0
+//   Oldtime=Seconds()
+//   Kes_sure=RAPAYAR->SCR_SUR
+//   Set key 273 to int_altw
+//   Keysec(273,1,-1)
+//Endif
 SetColor(OldColor)
 SETCURSOR(0)
 RestScreen(0,0,24,79,OldScr)

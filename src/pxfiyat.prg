@@ -62,7 +62,7 @@ Set Key K_ALT_K To KurGir()
 Set Key K_ALT_G To MakinaGir()
 Set Key K_ALT_P To KasaIslem()
 Set Key K_ALT_Y To Yardim()
-If RAPAYAR->SIF_DR1="û"
+If RAPAYAR->SIF_DR1="x"
    nGirisDur:=Sifre()
    If nGirisDur=0
       Set Color To
